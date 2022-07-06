@@ -4,7 +4,7 @@
     android:id="@+id/activity_selector_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.android.brogrammers.sportsm8.SocialTab.SelectorContainer">
+    tools:context="com.android.brogrammers.sportsm8.socialTab.SelectorContainer">
 
     <FrameLayout
         android:id="@+id/selector_container"

@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.android.brogrammers.sportsm8.DataBaseConnection.APIUtils;
-import com.android.brogrammers.sportsm8.DataBaseConnection.ApiServices.MeetingApiService;
-import com.android.brogrammers.sportsm8.DataBaseConnection.DatabaseClasses.Meeting;
+import com.android.brogrammers.sportsm8.dataBaseConnection.APIUtils;
+import com.android.brogrammers.sportsm8.dataBaseConnection.apiServices.MeetingApiService;
+import com.android.brogrammers.sportsm8.dataBaseConnection.databaseClasses.Meeting;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;

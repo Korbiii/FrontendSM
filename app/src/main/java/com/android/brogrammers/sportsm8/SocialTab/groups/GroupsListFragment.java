@@ -1,22 +1,23 @@
-package com.android.brogrammers.sportsm8.SocialTab.Groups;
+package com.android.brogrammers.sportsm8.socialTab.groups;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.brogrammers.sportsm8.DataBaseConnection.ApiServices.GroupsApiService;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.brogrammers.sportsm8.dataBaseConnection.apiServices.GroupsApiService;
 import com.android.brogrammers.sportsm8.R;
-import com.android.brogrammers.sportsm8.SocialTab.FragmentSocial;
-import com.android.brogrammers.sportsm8.DataBaseConnection.APIUtils;
-import com.android.brogrammers.sportsm8.DataBaseConnection.DatabaseClasses.Group;
-import com.android.brogrammers.sportsm8.DataBaseConnection.RetroFitClient;
+import com.android.brogrammers.sportsm8.socialTab.FragmentSocial;
+import com.android.brogrammers.sportsm8.dataBaseConnection.APIUtils;
+import com.android.brogrammers.sportsm8.dataBaseConnection.databaseClasses.Group;
+import com.android.brogrammers.sportsm8.dataBaseConnection.RetroFitClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

@@ -121,4 +121,5 @@
     <string name="ortswahl">location_selection</string>
     <string name="name">Name</string>
     <string name="create">Create</string>
+    <string name="default_web_client_id">www.test.de</string>
 </resources>

@@ -24,9 +24,10 @@
 
 
         <activity
-            android:name=".UserClasses.LoginScreen"
+            android:name=".userClasses.LoginScreen"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateVisible|adjustPan">
+            android:windowSoftInputMode="stateVisible|adjustPan"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,18 +36,22 @@
         </activity>
         <activity
             android:name=".MainActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ZZOldClassers.TestDirectory.BottomNavBar"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".UserClasses.RegisterActivity"
+            android:name=".userClasses.RegisterActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ZZOldClassers.CreateNewMeetingOld"
+            android:exported="false"
             android:theme="@style/AppTheme.Custom1" />
         <activity
-            android:name=".UserClasses.AccountPage.AccountPage"
+            android:name=".userClasses.accountPage.AccountPage"
             android:label="@string/title_activity_account_page"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -55,36 +60,43 @@
                 android:value="com.android.brogrammers.sportsm8.MainActivity" />
         </activity>
         <activity
-            android:name=".SocialTab.Friends.OnlyFriendsView"
+            android:name=".socialTab.friends.OnlyFriendsView"
             android:label=""
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".CalendarTab.MeetingDetailMVP.MeetingDetailActivity"
+            android:name=".calendarTab.meetingDetailMVP.MeetingDetailActivity"
             android:label=""
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SocialTab.Groups.GroupDetail.GroupDetailActivity"
+            android:name=".socialTab.groups.groupDetail.GroupDetailActivity"
             android:label=""
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SocialTab.SelectorContainer" />
+        <activity android:name=".socialTab.SelectorContainer" />
         <activity
-            android:name=".CalendarTab.CreateNewMeeting"
+            android:name=".calendarTab.CreateNewMeeting"
             android:label="@string/title_activity_create_new_meeting2"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SocialTab.Teams.TeamsDetailView.TeamDetailActivity"
+            android:name=".socialTab.teams.teamsDetailView.TeamDetailActivity"
             android:label="TeamDetail"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ZDebugScreen.DebugScreen"
             android:label="@string/title_activity_debug_screen"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.schibstedspain.leku.LocationPickerActivity"
             android:label="@string/title_activity_location_picker"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>

@@ -21,7 +21,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.brogrammers.sportsm8.R;
-import com.android.brogrammers.sportsm8.SocialTab.SelectorContainer;
+import com.android.brogrammers.sportsm8.socialTab.SelectorContainer;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeFieldType;

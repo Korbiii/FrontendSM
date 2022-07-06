@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.android.brogrammers.sportsm8.SocialTab.Friends.OnlyFriendsView"
+    tools:context="com.android.brogrammers.sportsm8.socialTab.friends.OnlyFriendsView"
     tools:showIn="@layout/activity_search_new_friends">
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/add_new_friend_recyclerview"/>

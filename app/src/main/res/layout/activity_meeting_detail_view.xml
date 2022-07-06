@@ -10,22 +10,22 @@
 
         <variable
             name="Meeting"
-            type="com.android.brogrammers.sportsm8.DataBaseConnection.DatabaseClasses.Meeting" />
+            type="com.android.brogrammers.sportsm8.dataBaseConnection.databaseClasses.Meeting" />
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context="com.android.brogrammers.sportsm8.CalendarTab.MeetingDetailMVP.MeetingDetailActivity">
+        tools:context="com.android.brogrammers.sportsm8.calendarTab.meetingDetailMVP.MeetingDetailActivity">
 
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/meeting_detail_collABL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
 
-            <android.support.design.widget.CollapsingToolbarLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -44,13 +44,13 @@
                     app:layout_collapseParallaxMultiplier="0.9" />
 
 
-                <android.support.v7.widget.Toolbar
+                <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin">
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -96,9 +96,9 @@
                             app:layout_constraintTop_toTopOf="@+id/back_arrow_meeting_detail" />
 
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </android.support.v7.widget.Toolbar>
+                </androidx.appcompat.widget.Toolbar>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -187,11 +187,11 @@
                     </LinearLayout>
                 </RelativeLayout>
 
-            </android.support.design.widget.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        </android.support.design.widget.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white"
@@ -202,8 +202,8 @@
                 layout="@layout/content_meeting_detail_view"
                 bind:Meeting="@{Meeting}" />
 
-        </android.support.v4.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
 
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -1,10 +1,12 @@
 package com.android.brogrammers.sportsm8.ZZOldClassers.TestDirectory;
 
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+
 import android.widget.TextView;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
@@ -15,7 +17,7 @@ import com.android.brogrammers.sportsm8.R;
  * Created by alex on 5/19/2017.
  */
 
-public class BottomNavBar extends AppCompatActivity{
+public class BottomNavBar extends AppCompatActivity {
     private TextView messageView;
 
     @Override

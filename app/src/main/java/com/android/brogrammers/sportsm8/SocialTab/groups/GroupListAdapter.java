@@ -1,10 +1,11 @@
-package com.android.brogrammers.sportsm8.SocialTab.Groups;
+package com.android.brogrammers.sportsm8.socialTab.groups;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +14,11 @@ import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
 import com.android.brogrammers.sportsm8.R;
-import com.android.brogrammers.sportsm8.SocialTab.ClickListener;
-import com.android.brogrammers.sportsm8.SocialTab.FragmentSocial;
-import com.android.brogrammers.sportsm8.SocialTab.Adapter.SelectableAdapter;
-import com.android.brogrammers.sportsm8.DataBaseConnection.DatabaseClasses.Group;
-import com.android.brogrammers.sportsm8.SocialTab.Groups.GroupDetail.GroupDetailActivity;
+import com.android.brogrammers.sportsm8.socialTab.ClickListener;
+import com.android.brogrammers.sportsm8.socialTab.FragmentSocial;
+import com.android.brogrammers.sportsm8.socialTab.adapter.SelectableAdapter;
+import com.android.brogrammers.sportsm8.dataBaseConnection.databaseClasses.Group;
+import com.android.brogrammers.sportsm8.socialTab.groups.groupDetail.GroupDetailActivity;
 
 import java.util.List;
 

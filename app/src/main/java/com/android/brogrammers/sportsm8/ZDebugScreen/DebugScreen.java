@@ -3,13 +3,14 @@ package com.android.brogrammers.sportsm8.ZDebugScreen;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
-import com.android.brogrammers.sportsm8.DataBaseConnection.APIUtils;
-import com.android.brogrammers.sportsm8.DataBaseConnection.ApiServices.MeetingApiService;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.android.brogrammers.sportsm8.dataBaseConnection.APIUtils;
+import com.android.brogrammers.sportsm8.dataBaseConnection.apiServices.MeetingApiService;
 import com.android.brogrammers.sportsm8.R;
 import com.github.javiersantos.appupdater.AppUpdater;
 import com.github.javiersantos.appupdater.enums.Display;

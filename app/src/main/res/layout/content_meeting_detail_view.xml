@@ -8,11 +8,11 @@
 
         <variable
             name="Meeting"
-            type="com.android.brogrammers.sportsm8.DataBaseConnection.DatabaseClasses.Meeting" />
+            type="com.android.brogrammers.sportsm8.dataBaseConnection.databaseClasses.Meeting" />
     </data>
 
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -75,7 +75,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_date_label" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_meeting_detail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -102,6 +102,6 @@
             app:layout_constraintTop_toBottomOf="@+id/v_meetingdetail_separator" />
 
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
