@@ -15,16 +15,13 @@ import com.android.brogrammers.sportsm8.R;
  */
 public class SelectorContainer extends AppCompatActivity implements FragmentSocial.OnFragmentInteractionListener {
 
-    private FragmentManager fragmentManager;
-    private Fragment fragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selector_container);
-        fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragment = new FragmentSocial();
+        Fragment fragment = new FragmentSocial();
         Bundle bundle = getIntent().getExtras();
         bundle.putBoolean("addToMeetingMode", true);
         fragment.setArguments(bundle);

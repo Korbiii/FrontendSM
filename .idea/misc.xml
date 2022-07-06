@@ -48,6 +48,8 @@
         <entry key="..\:/Users/ga78qug/Documents/Frontend2/app/src/main/res/layout/item_team_view.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/ga78qug/Documents/Frontend2/app/src/main/res/layout/navigation_header.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/ga78qug/Documents/Frontend2/app/src/main/res/layout/tab_item.xml" value="0.2" />
+        <entry key="..\:/_Projekte/Android/Freizeitliga/app/src/main/res/layout/activity_create_new_meeting.xml" value="0.33" />
+        <entry key="..\:/_Projekte/Android/Freizeitliga/app/src/main/res/layout/activity_create_new_meeting_two.xml" value="0.20208333333333334" />
       </map>
     </option>
   </component>
@@ -90,7 +92,7 @@
       </value>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
