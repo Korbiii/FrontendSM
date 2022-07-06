@@ -8,11 +8,6 @@ package com.example.alex.helloworld.CalendarActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,7 +15,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import com.example.alex.helloworld.Information;
 import com.example.alex.helloworld.R;
-import com.example.alex.helloworld.databaseConnection.AsyncResponse;
 import com.example.alex.helloworld.databaseConnection.DBconnection;
 import com.example.alex.helloworld.databaseConnection.Database;
 import com.example.alex.helloworld.databaseConnection.UIthread;
@@ -31,12 +25,17 @@ import org.joda.time.format.DateTimeFormat;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import com.example.alex.helloworld.R.*;
 
 import static java.lang.String.valueOf;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by agemcipe on 21.10.16.

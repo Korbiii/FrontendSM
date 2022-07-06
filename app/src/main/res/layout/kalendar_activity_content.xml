@@ -4,12 +4,12 @@
     android:layout_height="match_parent">
 
     <!-- recyclerView needs an adapter of its own -->
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/meetings_recycler_view">
 
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <!--
     <Button

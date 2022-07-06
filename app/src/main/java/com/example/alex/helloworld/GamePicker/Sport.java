@@ -9,26 +9,21 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
+
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.example.alex.helloworld.Unused_Inactive.AddSport;
 import com.example.alex.helloworld.Unused_Inactive.GamePickerLiga;
 import com.example.alex.helloworld.CreateNewMeeting.CreateNewMeeting;
@@ -37,13 +32,15 @@ import com.example.alex.helloworld.Information;
 import com.example.alex.helloworld.Invites;
 import com.example.alex.helloworld.LoginScreen;
 import com.example.alex.helloworld.R;
-import com.example.alex.helloworld.Unused_Inactive.AddSport;
-import com.example.alex.helloworld.Unused_Inactive.GamePickerLiga;
 import com.example.alex.helloworld.Unused_Inactive.SportAttributes;
 import com.example.alex.helloworld.databaseConnection.AsyncResponse;
 import com.example.alex.helloworld.databaseConnection.DBconnection;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.example.alex.helloworld.activities.AccountPage;
+
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.json.JSONException;
@@ -223,7 +220,7 @@ public class Sport extends AppCompatActivity {
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            public boolean onNavigationItemSelected(@NotNull MenuItem item) {
                 int id = item.getItemId();
                 Intent intent;
                 switch (id) {

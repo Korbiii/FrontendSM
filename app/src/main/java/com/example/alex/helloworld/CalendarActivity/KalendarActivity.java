@@ -3,14 +3,14 @@ package com.example.alex.helloworld.CalendarActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.alex.helloworld.Information;
 import com.example.alex.helloworld.R;
@@ -77,6 +77,11 @@ public class KalendarActivity extends AppCompatActivity implements UIthread {
         slidingTabLayout.setViewPager(viewPager);
 
         // needs to be adapted to keep current db info if refreshing not possible (no overwriting of sharedPreferences if no connection)
+    }
+
+    @Override
+    public void updateUI(String answer) {
+
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

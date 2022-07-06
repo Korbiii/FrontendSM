@@ -2,13 +2,7 @@ package com.example.alex.helloworld.Friends;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,10 +10,18 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+
 import com.example.alex.helloworld.Information;
 import com.example.alex.helloworld.R;
 import com.example.alex.helloworld.SlidingTabLayout.SlidingTabLayout;
 import com.example.alex.helloworld.databaseConnection.DBconnection;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 

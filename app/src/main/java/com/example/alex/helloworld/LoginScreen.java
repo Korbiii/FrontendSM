@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.UiThread;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -28,6 +26,8 @@ import java.io.InputStreamReader;
 
 import android.app.ProgressDialog;
 import android.net.Uri;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.alex.helloworld.databaseConnection.Database;
 import com.example.alex.helloworld.databaseConnection.UIthread;
@@ -90,7 +90,10 @@ public class LoginScreen extends AppCompatActivity implements UIthread {
                     return;
                 }
                 //request server authentication
-                login();
+                Intent intent = new Intent(LoginScreen.this, Home.class);
+                startActivity(intent);
+                LoginScreen.this.finish();
+                //login();
                 /*
                 //request server authentification
 

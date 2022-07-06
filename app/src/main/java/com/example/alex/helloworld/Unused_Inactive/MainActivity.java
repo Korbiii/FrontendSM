@@ -2,13 +2,14 @@ package com.example.alex.helloworld.Unused_Inactive;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.alex.helloworld.LoginScreen;
 import com.example.alex.helloworld.R;

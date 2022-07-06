@@ -1,12 +1,11 @@
 package com.example.alex.helloworld.dialogs;
 
 import android.app.Dialog;
-import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 import com.example.alex.helloworld.R;
 

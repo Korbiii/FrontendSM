@@ -5,16 +5,20 @@ package com.example.alex.helloworld;
  */
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.alex.helloworld.CalendarActivity.RecyclerViewAdapter;
 import com.example.alex.helloworld.DisplayWeekActivity.DisplayWeekActivityAdapter;
 import com.example.alex.helloworld.Unused_Inactive.Data;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
 public class Invites extends AppCompatActivity {
 
     RecyclerView recyclerView;

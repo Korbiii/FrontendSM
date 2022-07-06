@@ -8,7 +8,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginScreen" >
+        <activity android:name=".LoginScreen"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,25 +19,32 @@
 
         <activity
             android:name=".Home"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:exported="false"/>
+        <activity android:name=".Unused_Inactive.MainActivity"
 
-        <activity android:name=".Unused_Inactive.MainActivity" />
+            android:exported="false"/>
 
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".RegisterActivity"
+            android:exported="false"/>
 
         <activity
             android:name=".GamePicker.Sport"
             android:label="@string/title_activity_sportart"
+            android:exported="false"
             android:parentActivityName=".Home"
             android:theme="@style/AppTheme.NoActionBar">
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.alex.helloworld.Home" />
+
         </activity>
 
         <activity
             android:name=".Invites"
             android:label="@string/title_activity_einladungen"
+            android:exported="false"
             android:parentActivityName=".Home"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -46,21 +54,31 @@
 
         <activity
             android:name=".Unused_Inactive.GamePickerLiga"
+
+            android:exported="false"
             android:theme="@style/AppTheme.Custom1" />
 
         <activity
             android:name=".Unused_Inactive.AddSport"
+
+            android:exported="false"
             android:theme="@style/AppTheme.Custom1" />
 
         <activity
             android:name=".CreateNewMeeting.CreateNewMeeting"
+
+            android:exported="false"
             android:theme="@style/AppTheme.Custom1" />
 
-        <activity android:name=".CalendarActivity.CalendarActivity" />
+        <activity android:name=".CalendarActivity.CalendarActivity"
+
+            android:exported="false"/>
 
         <activity
             android:name=".activities.AccountPage"
             android:label="@string/title_activity_account_page"
+
+            android:exported="false"
             android:parentActivityName=".Home"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -71,10 +89,14 @@
         <activity
             android:name=".Friends.Friends"
             android:label=""
+
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".CalendarActivity.KalendarActivity"
+
+            android:exported="false"
             android:label="@string/kalendar_activity" />
 
 

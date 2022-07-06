@@ -1,12 +1,14 @@
 package com.example.alex.helloworld.CalendarActivity;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.alex.helloworld.Information;
 import com.example.alex.helloworld.R;
 import java.util.ArrayList;
@@ -87,11 +89,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public MeetingsViewHolder(View itemView) {
             super(itemView);
-            textview = (TextView) itemView.findViewById(R.id.txv_row);
+            textview = (TextView) itemView.findViewById(R.id.meeting_name);
             start = (TextView) itemView.findViewById(R.id.startzeit);
             stopp = (TextView) itemView.findViewById(R.id.stoppzeit);
-            habZ = (Button) itemView.findViewById(R.id.habeZ_button);
-            keineZ = (Button) itemView.findViewById(R.id.keineZ_button);
+            habZ = (Button) itemView.findViewById(R.id.accept_meeting_button);
+            keineZ = (Button) itemView.findViewById(R.id.decline_meeting_button);
         }
     }
 }
