@@ -13,7 +13,7 @@ public class APIUtils {
     private APIUtils(){}
 
     //private static final String BASE_URL = "http://sportsm8.bplaced.net:80/php/dynamicphp/include/";
-    private static final String BASE_URL = "http://php.rzepkavk.de/PHP/include/";
+    private static final String BASE_URL = "https://rzepkavk.de/PHP/";
 
     public static APIService getAPIService(){
         return RetroFitClient.getClient(BASE_URL).create(APIService.class);

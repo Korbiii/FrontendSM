@@ -432,7 +432,8 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
                     }
 
                     @Override
-                    public void onError(@NonNull Throwable e) {
+                    public void onError(@NonNull Throwable e){
+                        Log.d("TAG",e.toString());
                         Log.d("TAG","Error");
                     }
                 });
