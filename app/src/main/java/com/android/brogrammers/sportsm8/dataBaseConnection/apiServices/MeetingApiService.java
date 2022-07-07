@@ -23,7 +23,7 @@ import retrofit2.http.Query;
  */
 
 public interface MeetingApiService {
-    @GET("Meetings/Meetings.php")
+    @GET("Meetings/Meetings")
     Single<List<Meeting>> getMeetings(@Query("email") String email);
 
     @GET("Meetings/MemberList")

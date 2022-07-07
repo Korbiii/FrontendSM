@@ -19,7 +19,7 @@ import retrofit2.http.Query;
 
 public interface APIService {
     ///////////Sports
-    @GET("Sports/sportlist.php")
+    @GET("Sports/sportlist")
     Single<List<Sport>> getSports();
 
 
