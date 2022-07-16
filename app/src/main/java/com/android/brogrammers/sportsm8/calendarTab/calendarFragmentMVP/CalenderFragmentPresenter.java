@@ -55,7 +55,7 @@ public class CalenderFragmentPresenter {
                 .subscribeWith(new DisposableSingleObserver<List<Meeting>>() {
                     @Override
                     public void onSuccess(@NonNull List<Meeting> meetingList) {
-                        if (meetingList != null) {
+                        if (meetingList.size() > 0) {
                             meetings = meetingList;
                             view.displayMeetings(getDayFragments(meetings, 14), getHighlightList(meetings), today);
                             addData(meetingList.get(0));

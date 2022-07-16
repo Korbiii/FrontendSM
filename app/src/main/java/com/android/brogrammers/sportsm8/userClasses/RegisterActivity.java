@@ -32,15 +32,14 @@ public class RegisterActivity extends AppCompatActivity implements UIthread {
     protected String enteredUsername;
     private APIService apiService = APIUtils.getAPIService();
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        username = (EditText) findViewById(R.id.eUsername);
-        password = (EditText) findViewById(R.id.ePassword);
-        email = (EditText) findViewById((R.id.eEmail));
+        username = findViewById(R.id.eUsername);
+        password = findViewById(R.id.ePassword);
+        email = findViewById((R.id.eEmail));
 
         mAuth = FirebaseAuth.getInstance();
     }
@@ -72,6 +71,7 @@ public class RegisterActivity extends AppCompatActivity implements UIthread {
         enteredUsername = username.getText().toString();
         final String enteredPassword = password.getText().toString();
         final String enteredEmail = email.getText().toString();
+        Log.d(TAG, enteredEmail);
         mAuth.createUserWithEmailAndPassword(enteredEmail, enteredPassword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -86,6 +86,9 @@ public class RegisterActivity extends AppCompatActivity implements UIthread {
                                     Toast.LENGTH_SHORT).show();
                         }else{
                             syncDatabases(enteredUsername,enteredEmail);
+                            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            RegisterActivity.this.finish();
                         }
 
                         // ...
@@ -97,14 +100,8 @@ public class RegisterActivity extends AppCompatActivity implements UIthread {
     public void syncDatabases(String enteredUsername,String enteredEmail){
         apiService.createNewaccount(enteredEmail, enteredUsername)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                    }
+                .subscribe(() -> {
                 });
-//        String[] params = {"IndexAccounts.php", "function", "createNewAccount","password", enteredPassword, "email", enteredEmail,"username",enteredUsername};
-//        Database db = new Database(this, getBaseContext());
-//        db.execute(params);
     }
 
 

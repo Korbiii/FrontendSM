@@ -37,7 +37,7 @@ public interface MeetingApiService {
 
     @FormUrlEncoded
     @POST("Meetings/newMeeting")
-    Completable createMeeting(@Field("startTime") String startTime, @Field("endTime") String endTime, @Field("minPar") int mimMemberCount, @Field("member") String email, @Field("activity") String Activity, @Field("sportID") int sportID, @Field("dynamic") int dynamic, @FieldMap Map<String, String> members, @Field("longitude") double
+    Completable createMeeting(@Field("startTime") String startTime, @Field("endTime") String endTime, @Field("minPar") int mimMemberCount, @Field("creator") String email, @Field("activity") String Activity, @Field("sportID") int sportID, @Field("dynamic") int dynamic, @FieldMap Map<String, String> members, @Field("longitude") double
             longitude, @Field("latitude") double latitude);
 
     @FormUrlEncoded
@@ -55,7 +55,6 @@ public interface MeetingApiService {
     @FormUrlEncoded
     @POST("Meetings/addMembersToMeeting")
     Completable addMembersToMeeting(@Field("MeetingID") int meetingID, @FieldMap Map<String, String> members);
-
 
     @FormUrlEncoded
     @POST("IndexMeetings.php")

@@ -78,9 +78,9 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
     private DateTimeFormatter formatter;
     private boolean enoughPeopleInvited = false;
     private double latitude = 0, longitude = 0;
-    private GroupsApiService groupsAPIService = APIUtils.getGroupsAPIService();
-    private MeetingApiService meetingApiService = APIUtils.getMeetingAPIService();
-    private APIService apiService = APIUtils.getAPIService();
+    private final GroupsApiService groupsAPIService = APIUtils.getGroupsAPIService();
+    private final MeetingApiService meetingApiService = APIUtils.getMeetingAPIService();
+    private final APIService apiService = APIUtils.getAPIService();
     private String extraInfoString;
     private int step = 0;
 
@@ -100,34 +100,32 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
         ButterKnife.bind(this);
         start = true;
         extraInfoString = "";
-        formatter = DateTimeFormat.forPattern("MM-dd-YYYY HH:mm:ss");
+        formatter = DateTimeFormat.forPattern("dd-MM-YYYY HH:mm:ss");
         datetime = new DateTime();
         startTime = new MutableDateTime();
         endTime = new MutableDateTime();
+        endTime.addHours(minHours);
         createList();
         //SearchView
         binding.etChooseActivity.setVisibility(View.VISIBLE);
         binding.etChooseActivity.clearFocus();
 
-        include.btnDateBegin.setText(datetime.toString("EE., dd. MMM. yyyy"));
-        include.btnDateEnd.setText(datetime.toString("EE., dd. MMM. yyyy"));
-        include.btnTimeBegin.setText(datetime.toString("HH:mm"));
-        include.btnTimeEnd.setText(datetime.toString("HH:mm"));
+        include.btnDateBegin.setText(startTime.toString("EE., dd. MMM. yyyy"));
+        include.btnDateEnd.setText(endTime.toString("EE., dd. MMM. yyyy"));
+        include.btnTimeBegin.setText(startTime.toString("HH:mm"));
+        include.btnTimeEnd.setText(endTime.toString("HH:mm"));
         include.tvMinMeetingTime.setText(String.valueOf(minHours));
         include.tvMinPartySize.setText(String.valueOf(minMemberCount));
         include.rlLocation.setOnClickListener(this);
         //startCycle
         timeButtons(include.btnTimeBegin);
         binding.etChooseActivity.setHintTextColor(ContextCompat.getColor(getBaseContext(), R.color.WhiteTransparent));
-        binding.etChooseActivity.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    hideKeyboard();
-                    ViewHelperClass.expand(binding.btnClearChooseActivity, 255);
-                } else {
-                    ViewHelperClass.expand(binding.btnClearChooseActivity, 255);
-                }
+        binding.etChooseActivity.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                hideKeyboard();
+                ViewHelperClass.expand(binding.btnClearChooseActivity, 255);
+            } else {
+                ViewHelperClass.expand(binding.btnClearChooseActivity, 255);
             }
         });
 
@@ -181,7 +179,7 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
 
     @OnClick(R.id.min_party_size_RL)
     void setMinPartySize() {
-        createNumberPickerDialog("Ab wie vielen Leuten?", minMemberCount, Selection.size(), true);
+        createNumberPickerDialog("Ab wie vielen Leuten?", minMemberCount, 30, true);
     }
 
     @OnClick({R.id.btn_time_begin, R.id.btn_time_end})
@@ -292,15 +290,14 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
                     for (int i = 0; i < Selection.size(); i++) {
                         members.put("members" + i, Selection.get(i).email);
                     }
+
+                    System.out.println(formatter.print(startTime));
                     meetingApiService.createMeeting(formatter.print(startTime), formatter.print(endTime), minMemberCount, email, extraInfoString, sportart_ID, dynamic, members, longitude, latitude)
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(new Action() {
-                                @Override
-                                public void run() throws Exception {
-                                    Toasty.success(getBaseContext(), "Neues Meeting erstellt", Toast.LENGTH_SHORT).show();
-                                    setResult(RESULT_OK, intent);
-                                    finish();
-                                }
+                            .subscribe(() -> {
+                                Toasty.success(getBaseContext(), "Neues Meeting erstellt", Toast.LENGTH_SHORT).show();
+                                setResult(RESULT_OK, intent);
+                                finish();
                             });
                 } else {
                     Toasty.error(this, "Falsche Zeit eingestellt", Toast.LENGTH_SHORT).show();
@@ -330,11 +327,9 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
                 if (partySize) {
                     minMemberCount = numberPicker.getValue();
                     include.tvMinPartySize.setText(String.valueOf(minMemberCount));
-                    include.tvMinPartySize.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.green));
                 } else {
                     minHours = numberPicker.getValue();
                     include.tvMinMeetingTime.setText(String.valueOf(minHours));
-                    include.tvMinMeetingTime.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.green));
                 }
 
             }

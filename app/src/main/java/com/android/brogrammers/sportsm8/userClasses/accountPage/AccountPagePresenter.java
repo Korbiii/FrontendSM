@@ -34,7 +34,6 @@ public class AccountPagePresenter{
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-
                     }
                 });
 

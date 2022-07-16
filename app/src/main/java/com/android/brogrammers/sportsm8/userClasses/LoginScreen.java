@@ -74,7 +74,6 @@ public class LoginScreen extends AppCompatActivity implements GoogleApiClient.On
                     editor.apply();
                     progressDialog.dismiss();
                     System.out.println("session continued");
-                    //Intent intent = new Intent(LoginScreen.this, MainActivity.class);
                     Intent intent = new Intent(LoginScreen.this, MainActivity.class);
                     startActivity(intent);
                     LoginScreen.this.finish();

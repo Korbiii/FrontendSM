@@ -61,6 +61,7 @@ public class Meeting extends BaseObservable implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
         dest.writeInt(MeetingID);
         dest.writeInt(confirmed);
         dest.writeInt(minParticipants);
@@ -70,8 +71,13 @@ public class Meeting extends BaseObservable implements Parcelable {
         dest.writeInt(status);
         dest.writeString(meetingActivity);
         dest.writeLong(endTime.getMillis());
-        dest.writeLong(mystartTime.getMillis());
-        dest.writeLong(myendTime.getMillis());
+        if(mystartTime != null) {
+            dest.writeLong(mystartTime.getMillis());
+            dest.writeLong(myendTime.getMillis());
+        }else{
+            dest.writeLong(0);
+            dest.writeLong(0);
+        }
         dest.writeLong(startTime.getMillis());
         dest.writeString(day);
         dest.writeFloat(longitude);

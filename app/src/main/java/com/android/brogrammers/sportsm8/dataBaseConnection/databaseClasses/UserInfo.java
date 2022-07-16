@@ -49,8 +49,14 @@ public class UserInfo implements Parcelable {
         dest.writeInt(confirmed);
         dest.writeInt(begin);
         dest.writeInt(duration);
-        dest.writeLong(myendTime.getMillis());
-        dest.writeLong(mystartTime.getMillis());
+        if(myendTime != null) {
+            dest.writeLong(myendTime.getMillis());
+            dest.writeLong(mystartTime.getMillis());
+        }else{
+            dest.writeLong(0);
+            dest.writeLong(0);
+        }
+
     }
 
     @Override

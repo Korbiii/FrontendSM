@@ -41,7 +41,7 @@ public class DayFragment extends Fragment {
     private List<Meeting> meetingsOnDay;
     private MeetingCardAdapter rvAdapter;
     private FloatingActionButton floatingActionButton;
-    private DatabaseMeetingsRepository meetingsRepository = new DatabaseMeetingsRepository();
+    private final DatabaseMeetingsRepository meetingsRepository = new DatabaseMeetingsRepository();
     private int position;
 
     public static DayFragment newInstance(List<Meeting> meetingsOnDay) {
@@ -88,25 +88,22 @@ public class DayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_day, container, false);
-        floatingActionButton = (FloatingActionButton) getActivity().findViewById(R.id.fab_calendar);
+        floatingActionButton = getActivity().findViewById(R.id.fab_calendar);
         // needs to use the containers function since its not an activity
 
         //#############
-        recyclerView = (RecyclerView) view.findViewById(R.id.meetings_recycler_view);
+        recyclerView = view.findViewById(R.id.meetings_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         meetingsOnDay = (ArrayList<Meeting>) this.getArguments().getSerializable("meetingsOnDay");
         rvAdapter = new MeetingCardAdapter(getContext(), meetingsOnDay, this);
         recyclerView.setAdapter(rvAdapter);
 
-        AppBarLayout appBarLayout = (AppBarLayout) getActivity().findViewById(R.id.app_bar);
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (verticalOffset == 0) {
-                    floatingActionButton.animate().translationX(0).setDuration(100);
-                } else {
-                    floatingActionButton.animate().translationX(500);
-                }
+        AppBarLayout appBarLayout = getActivity().findViewById(R.id.app_bar);
+        appBarLayout.addOnOffsetChangedListener((appBarLayout1, verticalOffset) -> {
+            if (verticalOffset == 0) {
+                floatingActionButton.animate().translationX(0).setDuration(100);
+            } else {
+                floatingActionButton.animate().translationX(500);
             }
         });
         return view;
@@ -127,6 +124,7 @@ public class DayFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2 && resultCode == Activity.RESULT_OK) {
             ((CalenderFragment) getParentFragment()).onRefresh();
+            System.out.println("hallo");
             //TODO: Refresh better
         }
     }
@@ -174,13 +172,7 @@ public class DayFragment extends Fragment {
                         if (checked) {
                             meetingsRepository.setOtherTime(meeting,startTime,endTime)
                                     .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe(new Action() {
-                                        @Override
-                                        public void run() throws Exception {
-                                             Toasty.info(getContext(), "Andere Zeit gesetzt!", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-
+                                    .subscribe(() -> Toasty.info(getContext(), "Andere Zeit gesetzt!", Toast.LENGTH_SHORT).show());
 
                             position = meetingsOnDay.indexOf(meeting);
                             meetingsOnDay.get(position).setConfirmed(1);

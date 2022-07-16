@@ -21,3 +21,6 @@
 -dontwarn okio.**
 -dontwarn org.joda.time.**
 -dontwarn retrofit2.**
+-keepclassmembers class * implements android.os.Parcelable {
+    static ** CREATOR;
+}
