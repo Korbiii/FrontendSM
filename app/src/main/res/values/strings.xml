@@ -33,6 +33,17 @@
 
     </string-array>
 
+    <string-array name="emails">
+        <item>alexa.reish@gmail.com</item>
+        <item>alexander.reisach@gmail.com</item>
+        <item>Hendrik@gmail.com</item>
+        <item>jonathanhaas@arcor.de</item>
+        <item>Korbi@korbi.de</item>
+        <item>Lorenz@kommtehnicht.de</item>
+        <item>Nils@der.de</item>
+        <item>Vicent@Vaas.de</item>
+    </string-array>
+
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_sportart2">Sportart2</string>
     <string name="title_activity_einladungen">Einladungen</string>
@@ -79,4 +90,35 @@
     <string name="new_group_name">Gruppenname</string>
     <string name="create_group">Gruppe erstellen</string>
     <string name="next_meeting">Nächstes Meeting:</string>
+    <string name="title_activity_search_new_friends">SearchNewFriends</string>
+    <string name="title_activity_meeting_detail_view">MeetingDetailView</string>
+    <string name="text_selected">"%d ausgewählt"</string>
+    <string name="friendRequest">Freundschaftsanfrage</string>
+    <string name="create_meeting">Create Meeting</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="leave_group">Gruppe verlassen</string>
+    <string name="title_activity_create_new_meeting2">CreateNewMeeting2</string>
+    <string name="save">speichern</string>
+    <string name="add_friends_to_meeting">Freunde hinzufügen</string>
+    <string name="minium_party_size">Mindestanzahl Teilnemer:</string>
+    <string name="minimum_meeting_time">Mindestzeit:</string>
+    <string name="calendar">Kalendar</string>
+    <string name="friends">Freunde</string>
+    <string name="home">Home</string>
+    <string name="groups">Gruppen</string>
+    <string name="meetings">Meetings</string>
+    <string name="title_activity_debug_screen">DebugScreen</string>
+    <string name="start_sport_activity">Start Sport Meeting</string>
+    <string name="Sport_Meeting">Sport machen</string>
+    <string name="more_settings_button">More Settings</string>
+    <string name="ortswahl">location_selection</string>
+    <string name="name">Name</string>
+    <string name="create">Create</string>
 </resources>

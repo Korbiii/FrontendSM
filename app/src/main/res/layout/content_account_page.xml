@@ -1,90 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_account_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.alex.helloworld.activities.AccountPage"
-    tools:showIn="@layout/activity_account_page">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="151dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/blurred"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/accountpage_pp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/profilepicture"
+        app:layout_constraintBottom_toBottomOf="@+id/username_accountpage"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <TextView
+        android:id="@+id/username_accountpage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Korbinian Rzepka"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_friends_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/friends"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_groups_label"
+        app:layout_constraintRight_toLeftOf="@+id/tv_meetings_label"
+        app:layout_constraintLeft_toRightOf="@+id/tv_groups_label" />
+
+    <TextView
+        android:id="@+id/tv_groups_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/groups"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        android:layout_marginTop="8dp"
+        app:layout_constraintRight_toLeftOf="@+id/tv_friends_label"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_meetings_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/meetings"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_groups_label"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/tv_friends_label" />
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:elevation="8dp">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            />
+    <TextView
+        android:id="@+id/friend_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_friends_label"
+        app:layout_constraintRight_toRightOf="@+id/tv_friends_label"
+        app:layout_constraintTop_toBottomOf="@+id/tv_friends_label" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/profilepicture"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="16dp"/>
+    <TextView
+        android:id="@+id/group_memberships_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_groups_label"
+        app:layout_constraintRight_toRightOf="@+id/tv_groups_label"
+        app:layout_constraintTop_toBottomOf="@+id/tv_groups_label" />
 
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="8dp"/>
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="2">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
-            <TextView
-                android:id="@+id/email"
-                android:text="someEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"/>
-            <TextView
-                android:id="@+id/birthday"
-                android:text="someBirthday"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"/>
-            <Button
-                android:id="@+id/edit_userinformation"
-                android:text="Edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="Einstellungen"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_alignParentBottom="true"
-                android:layout_margin="8dp"/>
 
-        </LinearLayout>
+    <TextView
+        android:id="@+id/meetings_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_meetings_label"
+        app:layout_constraintRight_toRightOf="@+id/tv_meetings_label"
+        app:layout_constraintTop_toBottomOf="@+id/tv_meetings_label" />
 
-    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="395dp"
+        android:layout_height="1dp"
+        android:layout_below="@id/ll_time_buttons"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/group_memberships_number"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="8dp"
+        tools:layout_editor_absoluteX="8dp" />
+
+    <TextView
+        android:id="@+id/email_accountpage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:paddingStart="8dp"
+        android:text="Test@testemail.com"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+
+</android.support.constraint.ConstraintLayout>
 
 
 
-
-</LinearLayout>

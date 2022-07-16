@@ -4,33 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.example.alex.helloworld.Friends.Friends">
+    android:fitsSystemWindows="true">
 
-    <LinearLayout
+
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
+<<<<<<< HEAD
         <com.google.android.material.appbar.AppBarLayout
+=======
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+>>>>>>> 044cf5884e339459aa3498161251b165745978ba
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
+<<<<<<< HEAD
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
+=======
+            <RelativeLayout
+>>>>>>> 044cf5884e339459aa3498161251b165745978ba
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                android:elevation="4dp"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/reload_button_friends"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@color/colorPrimary"
+                    android:onClick="onClick"
+                    android:src="@drawable/ic_autorenew_white_36dp"
+                    android:visibility="gone" />
 
                 <ImageButton
                     android:id="@+id/discard_selection_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="onClick"
+                    android:layout_centerVertical="true"
                     android:background="@color/colorPrimary"
+                    android:onClick="onClick"
                     android:src="@drawable/ic_clear_white_36dp"
                     android:visibility="gone" />
 
@@ -38,26 +57,52 @@
                     android:id="@+id/selected_friends_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="60dp"
-                    android:paddingStart="60dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
                     android:visibility="gone" />
 
+<<<<<<< HEAD
             </androidx.appcompat.widget.Toolbar>
+=======
+                <ImageButton
+                    android:id="@+id/add_new_friend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/colorPrimary"
+                    android:onClick="onClick"
+                    android:src="@drawable/ic_search_white_36dp" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+>>>>>>> 044cf5884e339459aa3498161251b165745978ba
 
 
-            <com.example.alex.helloworld.SlidingTabLayout.SlidingTabLayout
-                android:id="@+id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+        <com.android.brogrammers.sportsm8.SlidingTabLayout.SlidingTabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
+<<<<<<< HEAD
         </com.google.android.material.appbar.AppBarLayout>
+=======
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/friends_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+>>>>>>> 044cf5884e339459aa3498161251b165745978ba
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -65,6 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:visibility="gone"
         app:srcCompat="@android:drawable/ic_menu_send" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

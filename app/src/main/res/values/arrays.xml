@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="sportDrawables">
+    <integer-array name="sportDrawables">
         <item>@drawable/beachen</item>
         <item>@drawable/soccer</item>
         <item>@drawable/run</item>
@@ -8,7 +8,19 @@
         <item>@drawable/basketball</item>
         <item>@drawable/tricking</item>
         <item>@drawable/gym</item>
-    </array>
+        <item>@drawable/custommeeting</item>
+    </integer-array>
+
+    <integer-array name="sportLogos">
+        <item>@drawable/beachball</item>
+        <item>@drawable/footballlogo</item>
+        <item>@drawable/footballlogo</item>
+        <item>@drawable/footballlogo</item>
+        <item>@drawable/basketballlogo</item>
+        <item>@drawable/basketballlogo</item>
+        <item>@drawable/basketballlogo</item>
+        <item>@drawable/basketballlogo</item>
+    </integer-array>
 
 
 </resources>

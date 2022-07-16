@@ -1,23 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.alex.helloworld">
+    package="com.android.brogrammers.sportsm8">
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-feature
+        android:name="android.hardware.location.network"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".LoginScreen"
             android:exported="true">
+=======
+
+
+        <activity
+            android:name=".UserClasses.LoginScreen"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateVisible|adjustPan">
+>>>>>>> 044cf5884e339459aa3498161251b165745978ba
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
+<<<<<<< HEAD
             android:name=".Home"
             android:theme="@style/AppTheme.NoActionBar"
             android:exported="false"/>
@@ -56,9 +78,21 @@
             android:name=".Unused_Inactive.GamePickerLiga"
 
             android:exported="false"
-            android:theme="@style/AppTheme.Custom1" />
-
+=======
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".ZZOldClassers.TestDirectory.BottomNavBar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UserClasses.RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ZZOldClassers.CreateNewMeetingOld"
+>>>>>>> 044cf5884e339459aa3498161251b165745978ba
+            android:theme="@style/AppTheme.Custom1" />
+        <activity
+<<<<<<< HEAD
             android:name=".Unused_Inactive.AddSport"
 
             android:exported="false"
@@ -80,25 +114,72 @@
 
             android:exported="false"
             android:parentActivityName=".Home"
+=======
+            android:name=".UserClasses.AccountPage.AccountPage"
+            android:label="@string/title_activity_account_page"
+            android:parentActivityName=".MainActivity"
+>>>>>>> 044cf5884e339459aa3498161251b165745978ba
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.alex.helloworld.Home" />
+                android:value="com.android.brogrammers.sportsm8.MainActivity" />
         </activity>
-
         <activity
-            android:name=".Friends.Friends"
+            android:name=".SocialTab.Friends.OnlyFriendsView"
             android:label=""
 
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
+<<<<<<< HEAD
             android:name=".CalendarActivity.KalendarActivity"
 
             android:exported="false"
             android:label="@string/kalendar_activity" />
+=======
+            android:name=".CalendarTab.MeetingDetailMVP.MeetingDetailActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SocialTab.Groups.GroupDetail.GroupDetailActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SocialTab.SelectorContainer" />
+        <activity
+            android:name=".CalendarTab.CreateNewMeeting"
+            android:label="@string/title_activity_create_new_meeting2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SocialTab.Teams.TeamsDetailView.TeamDetailActivity"
+            android:label="TeamDetail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ZDebugScreen.DebugScreen"
+            android:label="@string/title_activity_debug_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.schibstedspain.leku.LocationPickerActivity"
+            android:label="@string/title_activity_location_picker"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+>>>>>>> 044cf5884e339459aa3498161251b165745978ba
 
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCQ3tTuEkJqw3oMBAme5CHJDSD9RmRctQs" />
 
     </application>
+
 </manifest>

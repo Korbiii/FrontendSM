@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/edittext_custom_meeting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_margin="8dp"
+        android:layout_centerHorizontal="true"
+        android:hint="Was willst du tun?" />
+
+    <LinearLayout
+        android:id="@+id/ll_time_buttons"
+        android:layout_below="@id/edittext_custom_meeting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="6">
+
+        <Button
+            android:id="@+id/button_beginn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:onClick="timeButtons"
+            android:text="@string/text_beginning">
+
+        </Button>
+
+        <Button
+            android:id="@+id/button_ende"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:onClick="timeButtons"
+            android:text="@string/text_end" />
+
+        <Button
+            android:id="@+id/button_datum"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:onClick="dateButton"
+            android:text="@string/text_date" />
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/ll_time_buttons"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@android:color/darker_gray" />
+
+    <LinearLayout
+        android:id="@+id/ll_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Teilnemer:"
+                android:textSize="10sp" />
+
+
+            <NumberPicker
+                android:id="@+id/numberPicker_minMember"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:descendantFocusability="blocksDescendants" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/add_participants_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="addPartiMembersButton"
+                android:text="@string/add_friends" />
+
+            <TextView
+                android:id="@+id/number_added"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 Teilnehmer"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stunden"
+                android:textSize="10sp" />
+
+            <NumberPicker
+                android:id="@+id/numberPicker_hours"
+                android:layout_width="wrap_content"
+
+                android:layout_height="150dp"
+                android:descendantFocusability="blocksDescendants" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/checkbox_dynamic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_main"
+        android:layout_centerHorizontal="true"
+        android:text="Dynamic Meeting?" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editText_additional"
+            style="@style/Widget.AppCompat.AutoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:backgroundTint="@android:color/transparent"
+            android:cursorVisible="false"
+            android:hint="Ort, Habe Ball etc..."
+            android:maxLines="1"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/button_cancel"
+                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:onClick="cancelButton"
+                android:text="@string/text_cancel"
+                android:textColor="@color/colorPrimary" />
+
+            <Button
+                android:id="@+id/button2"
+                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:onClick="okButton"
+                android:text="@string/text_ok"
+                android:textColor="@color/colorPrimary" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

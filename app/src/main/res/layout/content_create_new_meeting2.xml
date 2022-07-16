@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="newMeeting"
+            type="com.android.brogrammers.sportsm8.CalendarTab.CreateNewMeeting" />
+    </data>
+
+
+    <LinearLayout
+        android:id="@+id/content_create_new_meeting2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.android.brogrammers.sportsm8.CalendarTab.CreateNewMeeting"
+        tools:showIn="@layout/activity_create_new_meeting_two">
+
+        <ListView
+            android:id="@+id/lv_meeting_activities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/fixed_time_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@{newMeeting.dynamic == 0 ? @color/colorPrimary : @color/grey}"
+                android:onClick="@{()->newMeeting.setDynamic(0)}"
+                android:text="Fixed Time"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/fluent_time_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@{newMeeting.dynamic == 1 ? @color/colorPrimary : @color/grey}"
+                android:onClick="@{()->newMeeting.setDynamic(1)}"
+                android:text="Fluent Time"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/dynamic_time_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@{newMeeting.dynamic == 2 ? @color/colorPrimary : @color/grey}"
+                android:onClick="@{()->newMeeting.setDynamic(2)}"
+                android:text="Free Time"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/time_imageview"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="40dp"
+                android:src="@drawable/ic_info_outline_black_48dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="72dp"
+                android:clickable="true"
+                android:text="Dynamic Meeting"
+                android:textColor="@color/black" />
+
+
+            <Switch
+                android:id="@+id/check_dynamic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_date_begin"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="72dp"
+                android:paddingStart="0dp"
+                android:text="Mi 4. Dez 2016"
+                android:textAllCaps="false"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/btn_time_begin"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="0dp"
+                android:text="HH:mm"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_date_end"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="72dp"
+                android:paddingStart="0dp"
+                android:text="Mi 4. Dez 2016"
+                android:textAllCaps="false"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/btn_time_end"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="0dp"
+                android:text="HH:mm"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/lightgrey" />
+
+        <RelativeLayout
+            android:id="@+id/add_friends_RL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_group_black_48dp" />
+
+            <TextView
+                android:id="@+id/tv_add_friends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="72dp"
+                android:paddingStart="0dp"
+                android:text="@string/add_friends_to_meeting"
+                android:textAllCaps="false"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/lightgrey" />
+
+        <RelativeLayout
+            android:id="@+id/more_settings_RL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_menu_manage" />
+
+            <TextView
+                android:id="@+id/more_settings_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="72dp"
+                android:paddingStart="0dp"
+                android:text="@string/more_settings_button"
+                android:textAllCaps="false"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:id="@+id/iv_expand_arrow"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:padding="0dp"
+                android:src="@drawable/ic_expand_more_black_36dp"
+                android:textColor="@color/black" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_more_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:elevation="0dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:id="@+id/min_party_size_RL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:paddingEnd="32dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_timeline_black_48dp" />
+
+                <TextView
+                    android:id="@+id/button_min_party_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="72dp"
+                    android:paddingStart="0dp"
+                    android:text="@string/minium_party_size"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_min_party_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:text="0"
+                    android:textColor="@color/black" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/min_meeting_time_RL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:paddingEnd="32dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_access_time_black_48dp" />
+
+                <TextView
+                    android:id="@+id/button_min_meeting_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="72dp"
+                    android:paddingStart="0dp"
+                    android:text="@string/minimum_meeting_time"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black" />
+
+
+                <TextView
+                    android:id="@+id/tv_min_meeting_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:text="0"
+                    android:textColor="@color/black" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:paddingEnd="32dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_location_on_black_48dp" />
+
+                <TextView
+                    android:id="@+id/location_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="72dp"
+                    android:paddingStart="0dp"
+                    android:text="@string/ortswahl"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black" />
+
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

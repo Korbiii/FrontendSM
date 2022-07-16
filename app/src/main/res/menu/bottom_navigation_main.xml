@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/bottom_navigation_sports"
+        android:enabled="true"
+        android:title="@string/button_sport"
+        android:icon="@drawable/ic_directions_run_black_24dp"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/bottom_navigation_calender"
+        android:enabled="true"
+        android:title="@string/button_calendar"
+        android:icon="@drawable/ic_insert_invitation_black_24dp"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/bottom_navigation_friends"
+        android:enabled="true"
+        android:title="@string/button_friends"
+        android:icon="@drawable/ic_people_white_48dp"
+        app:showAsAction="ifRoom"/>
+
+</menu>

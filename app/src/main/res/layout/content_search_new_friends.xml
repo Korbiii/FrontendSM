@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_search_new_friends"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.android.brogrammers.sportsm8.SocialTab.Friends.OnlyFriendsView"
+    tools:showIn="@layout/activity_search_new_friends">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+<<<<<<< HEAD:app/src/main/res/layout/content_einladungen.xml
+        android:id="@+id/inviteView">
+
+    </androidx.recyclerview.widget.RecyclerView>
+=======
+        android:id="@+id/add_new_friend_recyclerview"/>
+>>>>>>> 044cf5884e339459aa3498161251b165745978ba:app/src/main/res/layout/content_search_new_friends.xml
+
+</RelativeLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="60dp"
+    android:layout_height="60dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/indicator_participation"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@color/red"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_picture"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/profilepicture"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"
+        app:civ_border_color="@color/red"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tv_pp_starttime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:shadowColor="@color/white"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="2"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="12:00 -" />
+
+
+    <TextView
+        android:id="@+id/tv_pp_endtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:shadowColor="@color/white"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="2"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="18:00" />
+
+</android.support.constraint.ConstraintLayout>

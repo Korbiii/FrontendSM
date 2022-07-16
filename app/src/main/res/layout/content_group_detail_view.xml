@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <Button
+        android:id="@+id/btn_leave_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="@string/leave_group"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <View
+        android:id="@+id/v_bottom_separator"
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/btn_leave_group"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <View
+        android:id="@+id/v_top_separator"
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_member_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mitglieder:"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline3"
+        app:layout_constraintRight_toLeftOf="@+id/tv_group_size"/>
+
+    <TextView
+        android:id="@+id/tv_group_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_member_label"
+        app:layout_constraintLeft_toRightOf="@+id/tv_member_label"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="19" />
+
+
+
+    <TextView
+        android:id="@+id/tv_home_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Homebase:"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_member_label"
+        app:layout_constraintTop_toBottomOf="@+id/tv_member_label"/>
+
+    <TextView
+        android:id="@+id/tv_home_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vaterstetten"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_home_label"
+        app:layout_constraintRight_toRightOf="@+id/tv_group_size" />
+
+
+    <ListView
+        android:id="@+id/lv_group_member"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:clickable="false"
+        app:layout_constraintBottom_toTopOf="@+id/v_bottom_separator"
+        app:layout_constraintTop_toBottomOf="@+id/v_top_separator"
+        tools:layout_editor_absoluteX="0dp" />
+
+</android.support.constraint.ConstraintLayout>

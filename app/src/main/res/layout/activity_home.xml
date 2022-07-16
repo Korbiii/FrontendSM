@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+=======
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+>>>>>>> 044cf5884e339459aa3498161251b165745978ba
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_above="@+id/bottom_navigation"
+    android:fitsSystemWindows="true">
 
+<<<<<<< HEAD
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -25,38 +32,141 @@
             app:srcCompat="@drawable/kreuz" />
 
         <com.google.android.material.appbar.AppBarLayout
+=======
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/main_coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+>>>>>>> 044cf5884e339459aa3498161251b165745978ba
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="5dp"
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:background="?attr/colorPrimary"
+                android:elevation="5dp"
+                app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 
+<<<<<<< HEAD
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
+=======
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
 
-        <include layout="@layout/content_home" />
+                    <TextView
+                        android:id="@+id/toolbar_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="sans-serif-medium"
+                        android:padding="8dp"
+                        android:text="Title"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+
+                    <ImageButton
+                        android:id="@+id/image_button_toolbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:alpha="0"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_person_add_white_24dp" />
+
+
+                    <ImageButton
+                        android:id="@+id/change_start_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="8dp"
+                        android:background="@color/transparent"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_today_white_24dp"
+                        android:visibility="gone" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:visibility="gone"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/setLocation"
+                        android:padding="8dp"
+                        android:layout_toLeftOf="@id/change_start_date"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_location_off_white_24dp" />
+
+                </RelativeLayout>
+
+
+            </android.support.v7.widget.Toolbar>
+
+
+        </android.support.design.widget.AppBarLayout>
+>>>>>>> 044cf5884e339459aa3498161251b165745978ba
+
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="4dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="70dp"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_add_black_36dp" />
+
+        <com.roughike.bottombar.BottomBar
+            android:id="@+id/bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            android:background="@color/lightgrey"
+            app:bb_activeTabColor="@color/colorPrimaryDark"
+            app:bb_behavior="shy"
+            app:bb_inActiveTabColor="@color/darkgrey"
+            app:bb_tabXmlResource="@xml/content_bottom_nav_bar">
+
+        </com.roughike.bottombar.BottomBar>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
-        app:headerLayout="@layout/navigation_header"
-        app:menu="@menu/navigation_menu"
         android:layout_width="wrap_content"
-        android:fitsSystemWindows="true"
         android:layout_height="match_parent"
+<<<<<<< HEAD
         android:layout_gravity="start">
 
     </com.google.android.material.navigation.NavigationView>
 
+=======
+        android:layout_gravity="start"
+        android:fitsSystemWindows="false"
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/navigation_menu" />
+>>>>>>> 044cf5884e339459aa3498161251b165745978ba
 
 </androidx.drawerlayout.widget.DrawerLayout>

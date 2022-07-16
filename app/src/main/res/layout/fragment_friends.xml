@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/friends_tab_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<<<<<<< HEAD:app/src/main/res/layout/friends_fragment.xml
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/friends_recycler_view"/>
+=======
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/friends_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+>>>>>>> 044cf5884e339459aa3498161251b165745978ba:app/src/main/res/layout/fragment_friends.xml
+
+</RelativeLayout>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="newMeeting"
+            type="com.android.brogrammers.sportsm8.CalendarTab.CreateNewMeeting" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context="com.android.brogrammers.sportsm8.CalendarTab.CreateNewMeeting">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:focusable="true"
+                app:contentInsetStart="0dp"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_button_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageButton
+                            android:id="@+id/cancel_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="16dp"
+                            android:background="@color/transparent"
+                            android:src="@drawable/ic_arrow_back_white_24dp" />
+
+                        <TextView
+                            android:id="@+id/activity_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+
+                        <Button
+                            android:id="@+id/save_meeting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:background="@color/transparent"
+                            android:text="@string/save"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/rl_button_bar"
+                        android:descendantFocusability="beforeDescendants"
+                        android:focusableInTouchMode="true"
+                        android:padding="5dp">
+
+                        <EditText
+                            android:id="@+id/et_choose_activity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:padding="8dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@null"
+                            android:hint="Was willst du tun?"
+                            android:inputType="text|textNoSuggestions"
+                            android:maxLines="1"
+                            android:textColorHint="@color/white" />
+
+                        <ImageButton
+                            android:id="@+id/btn_clear_choose_activity"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="right|center_vertical"
+                            android:layout_marginEnd="16dp"
+                            android:visibility="gone"
+                            android:background="@color/transparent"
+                            android:src="@drawable/ic_clear_white_36dp" />
+
+                    </FrameLayout>
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <include
+            layout="@layout/content_create_new_meeting2"
+            android:id="@+id/include"
+            bind:newMeeting="@{newMeeting}" />
+
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

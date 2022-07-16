@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="loginColor">#00FF00</color>
-    <color name="whiteText">#FFFFFF</color>
-    <color name="transparent">#00000000</color>
-    <color name="orange">#FF9800</color>
-    <color name="weiss">#FFFFFF</color>
-    <color name="yellow">#FFEB3B</color>
-    <color name="green">#4CAF50</color>
-    <color name="red">#F44336</color>
+
+    //MainColors
+    <color name="colorPrimary">#3f51b5</color>
+    <color name="colorPrimaryDark">#303f9f</color>
+    <color name="colorAccent">#d50000</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="grey">#9e9e9e</color>
     <color name="lightgrey">#E0E0E0</color>
-    <color name="grey">#9E9E9E</color>
     <color name="darkgrey">#424242</color>
+
+    //Transparent Colors
+    <color name="transparent">#00000000</color>
+    <color name="WhiteTransparent">#59ffffff</color>
+    <color name="blackTransparent">#80000000</color>
+
+    //OtherColors
+
+    <color name="blue">#2196f3</color>
+    <color name="lightblue">#90CAF9</color>
+    <color name="green">#4caf50</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="orange">#FF9800</color>
+    <color name="red">#F44336</color>
+    <color name="darkred">#b71c1c</color>
+
+    //Override Colors
+    <color name="mdtp_date_picker_text_highlighted_dark_theme">#F44336</color>
+    <color name="mdtp_date_picker_text_highlighted">#F44336</color>
+
 </resources>

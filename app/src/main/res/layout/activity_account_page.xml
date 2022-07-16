@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="false"
+<<<<<<< HEAD
         tools:context="com.example.alex.helloworld.acc">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -22,6 +23,9 @@
             android:layout_margin="@dimen/fab_margin"
             app:backgroundTint="@color/colorPrimaryDark"
             app:srcCompat="@drawable/kreuz" />
+=======
+        tools:context="com.android.brogrammers.sportsm8.acc">
+>>>>>>> 044cf5884e339459aa3498161251b165745978ba
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -42,6 +46,7 @@
 
         <include layout="@layout/content_account_page" />
 
+<<<<<<< HEAD
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
@@ -58,3 +63,7 @@
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
+=======
+    </android.support.design.widget.CoordinatorLayout>
+</android.support.v4.widget.DrawerLayout>
+>>>>>>> 044cf5884e339459aa3498161251b165745978ba
