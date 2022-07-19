@@ -32,7 +32,7 @@ public class MeetingDetailViewPresenter extends BaseObservable {
     }
 
     public void loadMembers(final Meeting meeting) {
-        compositeDisposable.add(userRepository.getUsers(meeting.MeetingID)
+        compositeDisposable.add(userRepository.getUsers(meeting.meetingID)
                 .observeOn(mainScheduler)
                 .subscribeWith(new DisposableSingleObserver<List<UserInfo>>() {
                     @Override
@@ -64,7 +64,7 @@ public class MeetingDetailViewPresenter extends BaseObservable {
         for (int i = 0; i < selection.size(); i++) {
             membersMap.put("member" + i, selection.get(i).email);
         }
-        userRepository.addUsersToMeeting(meeting.MeetingID,membersMap)
+        userRepository.addUsersToMeeting(meeting.meetingID,membersMap)
                 .observeOn(mainScheduler)
                 .subscribe(new Action() {
                     @Override

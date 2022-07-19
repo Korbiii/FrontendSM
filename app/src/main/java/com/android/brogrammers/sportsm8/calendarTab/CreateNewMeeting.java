@@ -91,7 +91,6 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
     private ActivityCreateNewMeetingTwoBinding binding;
     private ContentCreateNewMeeting2Binding include;
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_new_meeting_two);
@@ -287,11 +286,11 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
                     SharedPreferences sharedPrefs = getBaseContext().getSharedPreferences("loginInformation", Context.MODE_PRIVATE);
                     String email = sharedPrefs.getString("email", "");
                     Map<String, String> members = new HashMap<>();
+                    members.put("members0", email);
                     for (int i = 0; i < Selection.size(); i++) {
-                        members.put("members" + i, Selection.get(i).email);
+                        int plusone = i+1;
+                        members.put("members" + plusone, Selection.get(i).email);
                     }
-
-                    System.out.println(formatter.print(startTime));
                     meetingApiService.createMeeting(formatter.print(startTime), formatter.print(endTime), minMemberCount, email, extraInfoString, sportart_ID, dynamic, members, longitude, latitude)
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(() -> {

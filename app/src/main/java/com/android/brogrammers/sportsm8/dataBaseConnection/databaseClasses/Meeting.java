@@ -15,7 +15,7 @@ import org.joda.time.DateTime;
 
 public class Meeting extends BaseObservable implements Parcelable {
 
-    public int MeetingID;
+    public int meetingID;
 
 
     private int confirmed = 0;
@@ -35,13 +35,13 @@ public class Meeting extends BaseObservable implements Parcelable {
 
     public Meeting(int meetingID, int minParticipants) {
         super();
-        MeetingID = meetingID;
+        this.meetingID = meetingID;
         this.minParticipants = minParticipants;
     }
 
 
     protected Meeting(Parcel in) {
-        MeetingID = in.readInt();
+        meetingID = in.readInt();
         confirmed = in.readInt();
         minParticipants = in.readInt();
         duration = in.readInt();
@@ -62,7 +62,7 @@ public class Meeting extends BaseObservable implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-        dest.writeInt(MeetingID);
+        dest.writeInt(meetingID);
         dest.writeInt(confirmed);
         dest.writeInt(minParticipants);
         dest.writeInt(duration);

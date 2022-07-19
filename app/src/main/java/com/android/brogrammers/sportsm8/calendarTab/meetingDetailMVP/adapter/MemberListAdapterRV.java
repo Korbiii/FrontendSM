@@ -48,9 +48,12 @@ public class MemberListAdapterRV extends RecyclerView.Adapter<MemberListAdapterR
                 .load("http://sportsm8.bplaced.net" +temp.PPpath)
                 .placeholder(R.drawable.profilepicture)
                 .into(holder.picture);
-        if (temp.mystartTime.getYear() != -1) {
+        if (temp.mystartTime != null) {
             holder.start.setText(memberList.get(position).getStartDateTime().toString("HH:mm -"));
             holder.end.setText(memberList.get(position).getEndDateTime().toString("HH:mm"));
+        }else{
+            holder.start.setText("HH:mm -");
+            holder.end.setText("HH:mm");
         }
         if (temp.confirmed == 1) {
             holder.picture.setBorderColor(ContextCompat.getColor(context,R.color.green));

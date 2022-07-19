@@ -32,7 +32,7 @@ public class DatabaseHelperMeetings implements Callback {
 
     public void confirm(Meeting meetingConfirm) {
         if (meetingConfirm.dynamic == 0) {
-            apiService.confirmMeeting(meetingConfirm.MeetingID, email)
+            apiService.confirmMeeting(meetingConfirm.meetingID, email)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Action() {
                         @Override
@@ -45,7 +45,7 @@ public class DatabaseHelperMeetings implements Callback {
 
     public void setOtherTime(DateTime start, DateTime end, Meeting meeting) {
         DateTimeFormatter formatter = DateTimeFormat.forPattern("MM-dd-YYYY HH:mm:ss");
-        apiService.setOtherTime(formatter.print(start),formatter.print(end), meeting.MeetingID, email)
+        apiService.setOtherTime(formatter.print(start),formatter.print(end), meeting.meetingID, email)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action() {
                     @Override
@@ -56,7 +56,7 @@ public class DatabaseHelperMeetings implements Callback {
     }
 
     public void declineMeeting(Meeting infoData) {
-        apiService.declineMeeting(infoData.MeetingID, email)
+        apiService.declineMeeting(infoData.meetingID, email)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action() {
                     @Override

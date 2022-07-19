@@ -85,7 +85,7 @@ public class MeetingCardAdapter extends RecyclerView.Adapter<MeetingCardAdapter.
 
     private void getOptimalTime(final int position) {
         MeetingApiService apiService = APIUtils.getMeetingAPIService();
-        apiService.getMeetingMemberTimes(meetingsOnDay.get(position).MeetingID)
+        apiService.getMeetingMemberTimes(meetingsOnDay.get(position).meetingID)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<List<UserInfo>>() {
                     @Override

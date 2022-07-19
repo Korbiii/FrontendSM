@@ -35,7 +35,7 @@ public class DatabaseMeetingsRepository implements MeetingsRepository {
 
     @Override
     public Single<JsonObject> isMeetingReady(final Meeting meeting) {
-        return apiService.isMeetingConfirmed(meeting.MeetingID);
+        return apiService.isMeetingConfirmed(meeting.meetingID);
     }
 
     @Override
@@ -45,17 +45,17 @@ public class DatabaseMeetingsRepository implements MeetingsRepository {
 
     @Override
     public Completable confirmMeeting(Meeting meeting) {
-        return apiService.confirmMeeting(meeting.MeetingID, email);
+        return apiService.confirmMeeting(meeting.meetingID, email);
     }
 
     @Override
     public Completable setOtherTime(Meeting meeting, DateTime start, DateTime end) {
-        return apiService.setOtherTime(formatter.print(start),formatter.print(end),meeting.MeetingID,email);
+        return apiService.setOtherTime(formatter.print(start),formatter.print(end),meeting.meetingID,email);
     }
 
     @Override
     public Completable declineMeeting(Meeting meeting) {
-        return apiService.declineMeeting(meeting.MeetingID,email);
+        return apiService.declineMeeting(meeting.meetingID,email);
     }
 
 

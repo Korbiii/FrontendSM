@@ -39,7 +39,7 @@ public class DatabaseUserRepository implements UserRepository {
             return Single.fromCallable(new Callable<ResponseBody>() {
                 @Override
                 public ResponseBody call() throws Exception {
-                    return apiService.confirmMeeting2("confirmAtt", meeting.MeetingID, LoginScreen.getRealEmail()).execute().body();
+                    return apiService.confirmMeeting2("confirmAtt", meeting.meetingID, LoginScreen.getRealEmail()).execute().body();
                 }
             });
         } else {
