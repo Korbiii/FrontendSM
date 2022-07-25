@@ -60,6 +60,7 @@ import es.dmoral.toasty.Toasty;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Action;
+import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.observers.DisposableSingleObserver;
 
 
@@ -72,9 +73,8 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
     int sportart_ID = 8008;
     List<UserInfo> Selection = new ArrayList<>();
     List<Group> SelectionGroup = new ArrayList<>();
-    private Boolean start;
     private MutableDateTime startTime, endTime;
-    private DateTime datetime, selectedDate;
+    private DateTime selectedDate;
     private DateTimeFormatter formatter;
     private boolean enoughPeopleInvited = false;
     private double latitude = 0, longitude = 0;
@@ -97,10 +97,8 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
         include = binding.include;
         binding.setNewMeeting(this);
         ButterKnife.bind(this);
-        start = true;
         extraInfoString = "";
         formatter = DateTimeFormat.forPattern("dd-MM-YYYY HH:mm:ss");
-        datetime = new DateTime();
         startTime = new MutableDateTime();
         endTime = new MutableDateTime();
         endTime.addHours(minHours);
@@ -278,25 +276,27 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
         if (enoughPeopleInvited) {
             if (minMemberCount != 0 && minHours != 0) {
                 if (startTime.isBefore(endTime)) {
-//                    if (checkSwitch.isChecked()) {
-//                        dynamic = 1;
-//                        startTime.setMinuteOfHour((startTime.getMinuteOfHour() - startTime.getMinuteOfHour() % 15));
-//                        endTime.setMinuteOfHour((endTime.getMinuteOfHour() - endTime.getMinuteOfHour() % 15));
-//                    }
                     SharedPreferences sharedPrefs = getBaseContext().getSharedPreferences("loginInformation", Context.MODE_PRIVATE);
                     String email = sharedPrefs.getString("email", "");
                     Map<String, String> members = new HashMap<>();
-                    members.put("members0", email);
                     for (int i = 0; i < Selection.size(); i++) {
-                        int plusone = i+1;
-                        members.put("members" + plusone, Selection.get(i).email);
+                        members.put("members" + i, Selection.get(i).email);
                     }
                     meetingApiService.createMeeting(formatter.print(startTime), formatter.print(endTime), minMemberCount, email, extraInfoString, sportart_ID, dynamic, members, longitude, latitude)
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(() -> {
-                                Toasty.success(getBaseContext(), "Neues Meeting erstellt", Toast.LENGTH_SHORT).show();
-                                setResult(RESULT_OK, intent);
-                                finish();
+                            .subscribe(new DisposableCompletableObserver() {
+                                @Override
+                                public void onComplete() {
+                                    Toasty.success(getBaseContext(), "Neues Meeting erstellt", Toast.LENGTH_SHORT).show();
+                                    setResult(RESULT_OK, intent);
+                                    finish();
+                                    dispose();
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    dispose();
+                                }
                             });
                 } else {
                     Toasty.error(this, "Falsche Zeit eingestellt", Toast.LENGTH_SHORT).show();
@@ -353,7 +353,6 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
                     .subscribeWith(new DisposableSingleObserver<List<UserInfo>>() {
                         @Override
                         public void onSuccess(@NonNull List<UserInfo> response) {
-
                             List<UserInfo> temp = response;
                             for (int j = 0; j < temp.size(); j++) {
                                 Boolean tempBool = false;
@@ -367,11 +366,12 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
                                 }
                             }
                             include.tvAddFriends.setText(Selection.size() + "  Teilnehmer hinzugefügt");
+                            dispose();
                         }
 
                         @Override
                         public void onError(@NonNull Throwable e) {
-
+                            dispose();
                         }
                     });
         }
