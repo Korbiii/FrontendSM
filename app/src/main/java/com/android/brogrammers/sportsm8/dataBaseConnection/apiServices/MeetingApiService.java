@@ -29,10 +29,10 @@ public interface MeetingApiService {
     @GET("Meetings/MemberList")
     Single<List<UserInfo>> getMemberList(@Query("MeetingID") int meetingID);
 
-    @GET("Meetings/MeetingMemberTimes")
+    @GET("Meetings/MeetingMemberTimes") //TODO
     Single<List<UserInfo>> getMeetingMemberTimes(@Query("meetingID") int meetingID);
 
-    @GET("Meetings/isMeetingConfirmed")
+    @GET("Meetings/isMeetingConfirmed") //TODO
     Single<JsonObject> isMeetingConfirmed(@Query("MeetingID") int meetingID);
 
     @FormUrlEncoded
@@ -53,11 +53,11 @@ public interface MeetingApiService {
     Completable declineMeeting(@Field("meetingID") int meetingID, @Field("email") String email);
 
     @FormUrlEncoded
-    @POST("Meetings/addMembersToMeeting")
+    @POST("Meetings/addMembersToMeeting") //TODO
     Completable addMembersToMeeting(@Field("MeetingID") int meetingID, @FieldMap Map<String, String> members);
 
     @FormUrlEncoded
-    @POST("IndexMeetings.php")
+    @POST("IndexMeetings.php") //TODO
     Call<ResponseBody> confirmMeeting2(@Field("function") String function, @Field("meetingID") int meetingID, @Field("email") String email);
 
 }

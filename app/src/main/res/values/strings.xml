@@ -122,4 +122,5 @@
     <string name="name">Name</string>
     <string name="create">Create</string>
     <string name="participants_added">%1$d Teilnehmer hinzugefügt</string>
+    <string name="meeting_start_end">%1$s - %2$s</string>
 </resources>

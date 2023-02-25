@@ -200,6 +200,7 @@
 
             <include
                 layout="@layout/content_meeting_detail_view"
+                android:id="@+id/include"
                 bind:Meeting="@{Meeting}" />
 
         </androidx.core.widget.NestedScrollView>

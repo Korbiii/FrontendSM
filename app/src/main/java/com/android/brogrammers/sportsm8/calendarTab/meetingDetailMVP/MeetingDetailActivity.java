@@ -1,24 +1,21 @@
 package com.android.brogrammers.sportsm8.calendarTab.meetingDetailMVP;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,23 +28,19 @@ import com.android.brogrammers.sportsm8.dataBaseConnection.repositories.impl.Dat
 import com.android.brogrammers.sportsm8.dataBaseConnection.repositories.impl.DatabaseUserRepository;
 import com.android.brogrammers.sportsm8.R;
 import com.android.brogrammers.sportsm8.databinding.ActivityMeetingDetailViewBinding;
+import com.android.brogrammers.sportsm8.databinding.ContentMeetingDetailViewBinding;
 import com.android.brogrammers.sportsm8.socialTab.friends.OnlyFriendsView;
 import com.android.brogrammers.sportsm8.userClasses.LoginScreen;
 import com.android.brogrammers.sportsm8.ViewHelperClass;
-import com.google.android.material.appbar.AppBarLayout;
 
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import es.dmoral.toasty.Toasty;
-import io.apptik.widget.MultiSlider;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Action;
+import io.reactivex.disposables.CompositeDisposable;
 
 public class MeetingDetailActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, MeetingDetailView {
 
@@ -59,53 +52,33 @@ public class MeetingDetailActivity extends AppCompatActivity implements SwipeRef
     DatabaseMeetingsRepository meetingsRepository;
     DateTime startDateTime, endDateTime;
     private Intent intent;
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    @BindView(R.id.listview_meeting_detail)
-    ListView listView;
-    @BindView(R.id.recyclerview_meeting_detail)
-    RecyclerView recyclerView;
-    //@BindView(R.id.meeting_detail_swipeRefresh)
-    //SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.time_meeting_detail)
-    TextView textView_time;
-    @BindView(R.id.tv_home_name)
-    TextView textView_date;
-    @BindView(R.id.activity_name_detailview)
-    TextView textView_sportID;
-    @BindView(R.id.meeting_detail_view_imageview)
-    ImageView bannerImage;
-    @BindView(R.id.meeting_detail_collABL)
-    AppBarLayout appBarLayout;
-    @BindView(R.id.accept_meeting)
-    ImageButton acceptMeeting;
-    @BindView(R.id.decline_meeting)
-    ImageButton declineMeeting;
-    @BindView(R.id.rangebar)
-    MultiSlider rangeBar;
-    @BindView(R.id.progress_bar)
-    LinearLayout progressBar;
-    @BindView(R.id.new_endTime_detailV)
-    TextView newEndTimeView;
-    @BindView(R.id.new_startTime_detailV)
-    TextView newStartTimeView;
-    @BindView(R.id.dash_detailView)
-    TextView dashView;
 
     MeetingDetailViewPresenter presenter;
+    private ActivityMeetingDetailViewBinding binding;
+    private ContentMeetingDetailViewBinding include;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new MeetingDetailViewPresenter(this, new DatabaseUserRepository(), AndroidSchedulers.mainThread());
-        setContentView(R.layout.activity_meeting_detail_view);
-        ActivityMeetingDetailViewBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_meeting_detail_view);
+        binding = ActivityMeetingDetailViewBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+        include = binding.include;
         thisMeeting = getIntent().getParcelableExtra("MeetingOnDay");
         binding.setVariable(BR.meeting, thisMeeting);
 
+        binding.addPeopleToMeeting.setOnClickListener(this::addPeopleToMeeting);
+        binding.backArrowMeetingDetail.setOnClickListener(this::back);
+        binding.acceptMeeting.setOnClickListener(this::acceptMeeting);
+        binding.declineMeeting.setOnClickListener(this::declineMeeting);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ButterKnife.bind(this);
         //Variables
 
         startDateTime = thisMeeting.getStartDateTime();
@@ -113,79 +86,73 @@ public class MeetingDetailActivity extends AppCompatActivity implements SwipeRef
         Resources res = getResources();
         TypedArray bannerArray = res.obtainTypedArray(R.array.sportDrawables);
         //Set Views
-        textView_time.setText(startDateTime.toString("HH:mm") + "-" + endDateTime.toString("HH:mm"));
-        textView_date.setText(startDateTime.toString("dd.MM.YYYY"));
+
+        include.tvTimeLabel.setText(getString(R.string.meeting_start_end,startDateTime.toString("HH:mm"),endDateTime.toString("HH:mm")));
+        include.tvDateLabel.setText(startDateTime.toString("dd.MM.YYYY"));
         if (thisMeeting.sportID < bannerArray.length()) {
-            bannerImage.setImageResource(bannerArray.getResourceId(thisMeeting.sportID, R.drawable.custommeeting));
+            binding.meetingDetailViewImageview.setImageResource(bannerArray.getResourceId(thisMeeting.sportID, R.drawable.custommeeting));
         }
         bannerArray.recycle();
-        textView_sportID.setText(thisMeeting.meetingActivity);
+        binding.activityNameDetailview.setText(thisMeeting.meetingActivity);
         members = new ArrayList<>();
         arrayAdapter = new MemberListAdapter(this, members);
-        listView.setAdapter(arrayAdapter);
+        include.listviewMeetingDetail.setAdapter(arrayAdapter);
         arrayAdapterRV = new MemberListAdapterRV(this,members);
-        recyclerView.setAdapter(arrayAdapterRV);
+        include.recyclerviewMeetingDetail.setAdapter(arrayAdapterRV);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        include.recyclerviewMeetingDetail.setLayoutManager(linearLayoutManager);
         //    getMemberList();
         presenter.loadMembers(thisMeeting);
 
-        findViewById(R.id.listview_meeting_detail).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                v.getParent().requestDisallowInterceptTouchEvent(true);
-                return false;
-            }
+
+        include.listviewMeetingDetail.setOnTouchListener((v, event) -> {
+            v.getParent().requestDisallowInterceptTouchEvent(true);
+            return false;
         });
 
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (verticalOffset < -100) verticalOffset = -100;
-                float offset = 1 + (verticalOffset / 100);
-                scaleView(new View[]{acceptMeeting, declineMeeting, rangeBar, newEndTimeView, newStartTimeView, dashView}, offset);
-            }
+        binding.meetingDetailCollABL.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+            if (verticalOffset < -100) verticalOffset = -100;
+            float offset = 1 + (verticalOffset / 100f);
+            scaleView(new View[]{binding.acceptMeeting, binding.declineMeeting,binding.rangebar,binding.newEndTimeDetailV,binding.newStartTimeDetailV,binding.dashDetailView}, offset);
         });
         meetingsRepository = new DatabaseMeetingsRepository();
         if (thisMeeting.dynamic == 0) {
-            rangeBar.setVisibility(View.GONE);
+            binding.rangebar.setVisibility(View.GONE);
         } else {
             rangeBarSetup();
         }
         if (thisMeeting.getConfirmed() == 1 || thisMeeting.duration != 0) {
-            ViewHelperClass.setInvisible(new View[]{acceptMeeting, declineMeeting, rangeBar, newEndTimeView, newStartTimeView, dashView});
+            ViewHelperClass.setInvisible(new View[]{binding.acceptMeeting, binding.declineMeeting,binding.rangebar,binding.newEndTimeDetailV,binding.newStartTimeDetailV,binding.dashDetailView});
         }
         intent = new Intent();
         //    swipeRefreshLayout.setOnRefreshListener(this);
 
     }
 
+
     private void rangeBarSetup() {
-        rangeBar.setMax(96);
-        newStartTimeView.setText(startDateTime.toString("HH:mm"));
-        newEndTimeView.setText(endDateTime.toString("HH:mm"));
-        rangeBar.getThumb(0).setValue(startDateTime.getMinuteOfDay() / 15);
-        rangeBar.getThumb(1).setValue(endDateTime.getMinuteOfDay() / 15);
-        rangeBar.setStepsThumbsApart(4);
-        rangeBar.setOnThumbValueChangeListener(new MultiSlider.OnThumbValueChangeListener() {
-            @Override
-            public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
-                if (thumbIndex == 0) {
-                    startDateTime = startDateTime.withTimeAtStartOfDay().plusMinutes(value * 15);
-                    newStartTimeView.setText(startDateTime.toString("HH:mm"));
-                    thisMeeting.setStartDateTime(startDateTime);
-                } else {
-                    endDateTime = endDateTime.withTimeAtStartOfDay().plusMinutes(value * 15);
-                    newEndTimeView.setText(endDateTime.toString("HH:mm"));
-                    thisMeeting.setEndStartDateTime(endDateTime);
-                }
+        binding.rangebar.setMax(96);
+        binding.newStartTimeDetailV.setText(startDateTime.toString("HH:mm"));
+        binding.newEndTimeDetailV.setText(endDateTime.toString("HH:mm"));
+        binding.rangebar.getThumb(0).setValue(startDateTime.getMinuteOfDay() / 15);
+        binding.rangebar.getThumb(1).setValue(endDateTime.getMinuteOfDay() / 15);
+        binding.rangebar.setStepsThumbsApart(4);
+        binding.rangebar.setOnThumbValueChangeListener((multiSlider, thumb, thumbIndex, value) -> {
+            if (thumbIndex == 0) {
+                startDateTime = startDateTime.withTimeAtStartOfDay().plusMinutes(value * 15);
+                binding.newStartTimeDetailV.setText(startDateTime.toString("HH:mm"));
+                thisMeeting.setStartDateTime(startDateTime);
+            } else {
+                endDateTime = endDateTime.withTimeAtStartOfDay().plusMinutes(value * 15);
+                binding.newEndTimeDetailV.setText(endDateTime.toString("HH:mm"));
+                thisMeeting.setEndStartDateTime(endDateTime);
             }
         });
     }
 
     @Override
     public void setUpprogressBar(int accepted, int total) {
-        progressBar.removeAllViews();
+        include.progressBar.removeAllViews();
         for (int i = 0; i < total; i++) {
             ImageView imageView = new ImageView(getBaseContext());
             imageView.setImageResource(R.drawable.ic_person_black_36dp);
@@ -195,7 +162,7 @@ public class MeetingDetailActivity extends AppCompatActivity implements SwipeRef
                 imageView.setScaleY(0.5f);
                 imageView.setAlpha(0.5f);
             }
-            progressBar.addView(imageView);
+            include.progressBar.addView(imageView);
         }
     }
 
@@ -209,36 +176,43 @@ public class MeetingDetailActivity extends AppCompatActivity implements SwipeRef
         Toasty.error(this, "Error", Toast.LENGTH_SHORT).show();
     }
 
-    @OnClick(R.id.add_people_to_meeting)
+
+
+    ActivityResultLauncher<Intent> startAddingPeopleToMeeting = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    Bundle bundle = result.getData().getExtras();
+                    List<UserInfo> selection = (List<UserInfo>) bundle.getSerializable("partyList");
+                    presenter.addMembers(thisMeeting, selection);
+                }
+            });
+
+
     public void addPeopleToMeeting(View view) {
         Bundle bundle = new Bundle();
         bundle.putBoolean("SelectionMode", true);
         Intent intent = new Intent(this, OnlyFriendsView.class);
         intent.putExtras(bundle);
-        startActivityForResult(intent, 1);
+        startAddingPeopleToMeeting.launch(intent);
+//        startActivityForResult(intent, 1);
     }
 
-    @OnClick(R.id.back_arrow_meeting_detail)
-    public void back() {
+    public void back(View view) {
         finish();
     }
 
-    @OnClick(R.id.accept_meeting)
-    public void acceptMeeting() {
-        meetingsRepository.confirmMeeting(thisMeeting)
+
+    public void acceptMeeting(View view) {
+        compositeDisposable.add(meetingsRepository.confirmMeeting(thisMeeting)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                         Toasty.info(getBaseContext(), "Teilnahme zugesagt", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                .subscribe(() -> Toasty.info(getBaseContext(), "Teilnahme zugesagt", Toast.LENGTH_SHORT).show()));
 
 
         setResult(RESULT_OK, intent);
-        ViewHelperClass.setInvisible(new View[]{acceptMeeting, declineMeeting, rangeBar, newEndTimeView, newStartTimeView, dashView});
+        ViewHelperClass.setInvisible(new View[]{binding.acceptMeeting, binding.declineMeeting,binding.rangebar,binding.newEndTimeDetailV,binding.newStartTimeDetailV,binding.dashDetailView});
         int count = 0;
-        progressBar.findViewById(count).animate().scaleX(1).scaleY(1).alpha(1);
+        include.progressBar.findViewById(count).animate().scaleX(1).scaleY(1).alpha(1);
         for (int i = 0; i < members.size(); i++) {
             String email = LoginScreen.getEmailAdress(this);
             if (members.get(i).email.equals(email)) {
@@ -248,16 +222,10 @@ public class MeetingDetailActivity extends AppCompatActivity implements SwipeRef
         }
     }
 
-    @OnClick(R.id.decline_meeting)
-    public void declineMeeting() {
-        meetingsRepository.declineMeeting(thisMeeting)
+    public void declineMeeting(View view) {
+        compositeDisposable.add(meetingsRepository.declineMeeting(thisMeeting)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                         Toasty.info(getBaseContext(), "Teilnahme abgesagt", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                .subscribe(() -> Toasty.info(getBaseContext(), "Teilnahme abgesagt", Toast.LENGTH_SHORT).show()));
         setResult(RESULT_OK, intent);
         finish();
     }
@@ -279,9 +247,9 @@ public class MeetingDetailActivity extends AppCompatActivity implements SwipeRef
     }
 
     public void scaleView(View[] view, float offset) {
-        for (int i = 0; i < view.length; i++) {
-            view[i].animate().scaleX(offset).setDuration(100);
-            view[i].animate().scaleY(offset).setDuration(100);
+        for (View value : view) {
+            value.animate().scaleX(offset).setDuration(100);
+            value.animate().scaleY(offset).setDuration(100);
         }
     }
 
