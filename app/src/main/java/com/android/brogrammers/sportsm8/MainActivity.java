@@ -259,7 +259,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int id = item.getItemId();
                 Intent intent;
                 switch (id) {
-
                     case R.id.nav_account:
                         intent = new Intent(getApplicationContext(), AccountPage.class);
                         startActivity(intent);
@@ -362,22 +361,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode < 5) {
-            CalenderFragment c1 = (CalenderFragment) fragmentManager.findFragmentByTag("calendar");
+            CalenderFragment calenderFragment = (CalenderFragment) fragmentManager.findFragmentByTag("calendar");
             if (requestCode == 1) {
                 if (resultCode == RESULT_OK) {
                     Place place = PlacePicker.getPlace(this, data);
                     LatLng coord = place.getLatLng();
                     double longitude = coord.longitude;
                     double latitude = coord.latitude;
-                    c1.setLocation(longitude, latitude, true);
+                    calenderFragment.setLocation(longitude, latitude, true);
                     locationON = true;
                     setLocation.setImageResource(R.drawable.ic_location_on_white_24dp);
-                    c1.toggleView(setLocation);
-                    c1.setFilterText(place.getAddress());
+                    calenderFragment.toggleView(setLocation);
+                    calenderFragment.setFilterText(place.getAddress());
                 }
             } else if (requestCode == 2 || resultCode == 3) {
                 if (resultCode == RESULT_OK) {
-                    c1.onRefresh();
+                    calenderFragment.onRefresh();
                 }
             }
         }

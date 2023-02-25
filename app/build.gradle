@@ -5,6 +5,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
     defaultConfig {
         applicationId "com.sportsm8"
@@ -21,9 +22,6 @@ android {
         abortOnError false
     }
 
-    dataBinding {
-        enabled = true
-    }
     /*sourceSets {
         main {
             res.srcDirs =

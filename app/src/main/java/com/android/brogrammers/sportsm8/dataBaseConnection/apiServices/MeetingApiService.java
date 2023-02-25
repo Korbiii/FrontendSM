@@ -42,7 +42,7 @@ public interface MeetingApiService {
 
     @FormUrlEncoded
     @POST("Meetings/confirmMeeting")
-    Completable confirmMeeting(@Field("meetingID") int meetingID, @Field("email") String email);
+    Completable confirmMeeting(@Field("meetingID") int meetingID, @Field("email") String email,@Field("mystartTime") String startTime, @Field("myendTime") String endTime);
 
     @FormUrlEncoded
     @POST("Meetings/setOtherTime")

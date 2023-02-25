@@ -28,7 +28,7 @@ public class DatabaseMeetingsRepository implements MeetingsRepository {
 
     public DatabaseMeetingsRepository() {
         apiService = APIUtils.getMeetingAPIService();
-        formatter = DateTimeFormat.forPattern("MM-dd-YYYY HH:mm:ss");
+        formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
          email = LoginScreen.getRealEmail();
 
     }
@@ -45,7 +45,7 @@ public class DatabaseMeetingsRepository implements MeetingsRepository {
 
     @Override
     public Completable confirmMeeting(Meeting meeting) {
-        return apiService.confirmMeeting(meeting.meetingID, email);
+        return apiService.confirmMeeting(meeting.meetingID, email,meeting.getStartDateTime().toString("yyyy-MM-dd HH:mm"), meeting.getEndDateTime().toString("yyyy-MM-dd HH:mm"));
     }
 
     @Override

@@ -32,7 +32,7 @@ public class DatabaseHelperMeetings implements Callback {
 
     public void confirm(Meeting meetingConfirm) {
         if (meetingConfirm.dynamic == 0) {
-            apiService.confirmMeeting(meetingConfirm.meetingID, email)
+            apiService.confirmMeeting(meetingConfirm.meetingID, email, meetingConfirm.getStartTime(), meetingConfirm.getEndTime())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Action() {
                         @Override

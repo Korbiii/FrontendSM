@@ -9,8 +9,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+
 import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import android.util.Log;
@@ -49,6 +52,7 @@ import org.joda.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import butterknife.ButterKnife;
@@ -59,6 +63,8 @@ import butterknife.OnTextChanged;
 import es.dmoral.toasty.Toasty;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.observers.DisposableSingleObserver;
@@ -89,11 +95,15 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
     private Intent intent = new Intent();
     Boolean bBegin = false, bEnd = false, bDate = false;
     private ActivityCreateNewMeetingTwoBinding binding;
+//    private ActivityCreateNewMeetingTwoBinding binding2;
     private ContentCreateNewMeeting2Binding include;
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_new_meeting_two);
+//        binding2 = ActivityCreateNewMeetingTwoBinding.inflate(getLayoutInflater());
+//        View view = binding2.getRoot();
         include = binding.include;
         binding.setNewMeeting(this);
         ButterKnife.bind(this);
@@ -130,7 +140,6 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
         DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd/MM/yyyy");
         selectedDate = DateTime.parse(intent.getStringExtra("date"), dateTimeFormatter);
         selectedDate.plusDays(1);
-
     }
 
     @OnCheckedChanged(R.id.check_dynamic)
@@ -152,6 +161,18 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
         finish();
     }
 
+    ActivityResultLauncher<Intent> startAddingFriendsActivity = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    Bundle bundle = result.getData().getExtras();
+                    Selection = (ArrayList<UserInfo>) bundle.getSerializable("partyList");
+                    SelectionGroup = (ArrayList<Group>) bundle.getSerializable("groupList");
+                }
+                mergeGroupsAndFriends();
+                checkMemberCount();
+            });
+
 
     @OnClick(R.id.add_friends_RL)
     void addFriends() {
@@ -160,7 +181,7 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
         bundle.putSerializable("Selection", new ArrayList<>(Selection));
         Intent intent = new Intent(this, SelectorContainer.class);
         intent.putExtras(bundle);
-        startActivityForResult(intent, 2);
+        startAddingFriendsActivity.launch(intent);
     }
 
 
@@ -348,24 +369,22 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
 
     public void mergeGroupsAndFriends() {
         for (int i = 0; i < SelectionGroup.size(); i++) {
-            groupsAPIService.getGroupMembers(SelectionGroup.get(i).GroupID)
+            compositeDisposable.add(groupsAPIService.getGroupMembers(SelectionGroup.get(i).GroupID)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(new DisposableSingleObserver<List<UserInfo>>() {
                         @Override
                         public void onSuccess(@NonNull List<UserInfo> response) {
-                            List<UserInfo> temp = response;
-                            for (int j = 0; j < temp.size(); j++) {
-                                Boolean tempBool = false;
+                            for (int j = 0; j < response.size(); j++) {
+                                boolean tempBool = false;
                                 for (int h = 0; h < Selection.size(); h++) {
-                                    if (temp.get(j).email.equals(Selection.get(h).email)) {
+                                    if (response.get(j).email.equals(Selection.get(h).email)) {
                                         tempBool = true;
                                     }
                                 }
                                 if (!tempBool) {
-                                    Selection.add(temp.get(j));
+                                    Selection.add(response.get(j));
                                 }
                             }
-                            include.tvAddFriends.setText(Selection.size() + "  Teilnehmer hinzugefügt");
                             dispose();
                         }
 
@@ -373,47 +392,25 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
                         public void onError(@NonNull Throwable e) {
                             dispose();
                         }
-                    });
+                    }));
         }
-    }
-
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 2) {
-            if (resultCode == RESULT_OK) {
-                Bundle bundle = data.getExtras();
-                Selection = (ArrayList<UserInfo>) bundle.getSerializable("partyList");
-                SelectionGroup = (ArrayList<Group>) bundle.getSerializable("groupList");
-            }
-            mergeGroupsAndFriends();
-            checkMemberCount();
-        } else if (requestCode == 1) {
-            if (resultCode == RESULT_OK) {
-                longitude = data.getDoubleExtra(LocationPickerActivity.LONGITUDE, 0);
-                latitude = data.getDoubleExtra(LocationPickerActivity.LATITUDE, 0);
-            }
-        }
-
-
     }
 
 
     private void checkMemberCount() {
         if (Selection.size() < minMemberCount) {
-
             include.tvAddFriends.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.red));
             enoughPeopleInvited = false;
         } else {
             include.tvAddFriends.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.green));
             enoughPeopleInvited = true;
         }
+        include.tvAddFriends.setText(getString(R.string.participants_added, Selection.size()));
     }
 
 
     private void createList() {
-        apiService.getSports()
+        compositeDisposable.add(apiService.getSports()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<List<Sport>>() {
                     @Override
@@ -430,8 +427,7 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
                         Log.d("TAG",e.toString());
                         Log.d("TAG","Error");
                     }
-                });
-
+                }));
     }
 
 
@@ -457,9 +453,9 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
                 searchresults.add(sportArten[i]);
             }
         }
-        String searchresultsS[] = new String[searchresults.size()];
-        searchresultsS = searchresults.toArray(searchresultsS);
-        final String[] sResult = searchresultsS;
+        String[] searchresultsArray = new String[searchresults.size()];
+        searchresultsArray = searchresults.toArray(searchresultsArray);
+        final String[] sResult = searchresultsArray;
         extraInfoString = newText;
         if (sResult != null) {
             ArrayAdapter<String> myAdapater = new ArrayAdapter<>(this, R.layout.item_custom_spinner, R.id.search_textview_meeting, sResult);
@@ -502,6 +498,23 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
+    public void onDestroy() {
+        try {
+            compositeDisposable.dispose();
+            super.onDestroy();
+        } catch (NullPointerException ignored) {
+
+        }
+    }
+
+    ActivityResultLauncher<Intent> startLocationPickerActivity = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                longitude = result.getData().getDoubleExtra(LocationPickerActivity.LONGITUDE, 0);
+                latitude = result.getData().getDoubleExtra(LocationPickerActivity.LATITUDE, 0);
+            });
+
+    @Override
     public void onClick(View v) {
         Intent intent = new LocationPickerActivity.Builder()
                 .withStreetHidden()
@@ -509,16 +522,6 @@ public class CreateNewMeeting extends AppCompatActivity implements View.OnClickL
                 .withZipCodeHidden()
                 .withSatelliteViewHidden()
                 .build(getApplicationContext());
-
-        startActivityForResult(intent, 1);
-
-
-//        int PLACE_PICKER_REQUEST = 1;
-//        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-//        try {
-//            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
-//        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
-//            e.printStackTrace();
-//        }
+        startLocationPickerActivity.launch(intent);
     }
 }
