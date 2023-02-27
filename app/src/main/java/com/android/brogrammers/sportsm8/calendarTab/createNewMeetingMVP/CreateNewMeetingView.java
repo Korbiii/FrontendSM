@@ -7,10 +7,10 @@ import com.android.brogrammers.sportsm8.dataBaseConnection.databaseClasses.Meeti
 import org.joda.time.DateTime;
 
 public interface CreateNewMeetingView {
-    void displayIfEnoughMembersSelected(boolean enough,int size);
+    void displayIfEnoughParticipantsSelected(boolean enough, int size);
     void createNumberPickerDialog(String message, int current, int max,String target);
     void setMinTimeHours(int minTimeHours);
-    void setMinMemberCount(int minMemberCount);
+    void setMinimumNumberOfParticipants(int minMemberCount);
     void updateDateTimeTextviews(Meeting meeting);
     void closeActivity();
     void showErrorToast(String message);

@@ -123,4 +123,8 @@
     <string name="create">Create</string>
     <string name="participants_added">%1$d Teilnehmer hinzugefügt</string>
     <string name="meeting_start_end">%1$s - %2$s</string>
+    <string name="new_meeting_created">Neues Meeting erstellt</string>
+    <string name="not_enough_participants">Das Meeting hat nicht genug Teilnehmer ausgewählt</string>
+    <string name="meeting_ends_before_start">Das Meeting endet bevor es startet.</string>
+    <string name="error_msg_create_meeting">Etwas ist schiefgelaufen bei dem Erstellen des Meetings</string>
 </resources>

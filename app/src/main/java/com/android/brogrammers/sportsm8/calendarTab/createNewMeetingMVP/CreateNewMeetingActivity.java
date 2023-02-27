@@ -38,7 +38,6 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import es.dmoral.toasty.Toasty;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -104,6 +103,8 @@ public class CreateNewMeetingActivity
         });
 
         updateDateTimeTextviews(presenter.meeting);
+        setMinTimeHours(presenter.meeting.duration);
+        setMinimumNumberOfParticipants(presenter.meeting.minParticipants);
     }
 
     public void sportSearchTriggered(String searchString){
@@ -236,10 +237,6 @@ public class CreateNewMeetingActivity
         startAddingFriendsActivity.launch(intent);
     }
 
-    private void testtest(View view){
-        System.out.println("hasllo");
-    }
-
     private void expandSettings(View view){
         include.ivExpandArrow.animate().rotation(include.ivExpandArrow.getRotation() == 180 ? 0 : 180);
         if (include.llMoreSettings.getAlpha() == 0) {
@@ -269,9 +266,9 @@ public class CreateNewMeetingActivity
         numberPicker.setWrapSelectorWheel(false);
         builder.setMessage(message).setCancelable(false).setPositiveButton("Ok", (dialogInterface, i) -> {
                     int numberPickerValue = numberPicker.getValue();
-                    if (target.equals("minMemberCount")){
+                    if (target.equals("minParticipantsCount")){
                         presenter.meeting.minParticipants = numberPickerValue;
-                        setMinMemberCount(numberPickerValue);
+                        setMinimumNumberOfParticipants(numberPickerValue);
                     }
                     if (target.equals("minHours")){
                         presenter.meeting.duration = numberPickerValue;
@@ -288,8 +285,8 @@ public class CreateNewMeetingActivity
     }
 
     @Override
-    public void setMinMemberCount(int minMemberCount) {
-        include.tvMinPartySize.setText(String.valueOf(minMemberCount));
+    public void setMinimumNumberOfParticipants(int minimumNumberOfParticipants) {
+        include.tvMinPartySize.setText(String.valueOf(minimumNumberOfParticipants));
     }
     @Override
     public  void updateDateTimeTextviews(Meeting meeting) {
@@ -301,7 +298,7 @@ public class CreateNewMeetingActivity
 
     @Override
     public void closeActivity() {
-        Toasty.success(getBaseContext(), "Neues Meeting erstellt", Toast.LENGTH_SHORT).show();
+        Toasty.success(getBaseContext(), getString(R.string.new_meeting_created), Toast.LENGTH_SHORT).show();
         setResult(RESULT_OK, intent);
         finish();
     }
@@ -313,7 +310,7 @@ public class CreateNewMeetingActivity
 
 
     @Override
-    public void displayIfEnoughMembersSelected(boolean enough,int size) {
+    public void displayIfEnoughParticipantsSelected(boolean enough, int size) {
         include.tvAddFriends.setText(getString(R.string.participants_added, size));
         include.tvAddFriends.setTextColor(enough ? ContextCompat.getColor(getBaseContext(), R.color.green):ContextCompat.getColor(getBaseContext(), R.color.red));
     }

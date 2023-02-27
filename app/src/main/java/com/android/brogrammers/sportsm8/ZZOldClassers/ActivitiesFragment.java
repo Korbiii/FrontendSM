@@ -21,7 +21,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import com.android.brogrammers.sportsm8.calendarTab.CreateNewMeeting;
 import com.android.brogrammers.sportsm8.R;
 
 import org.json.JSONException;
@@ -133,9 +132,9 @@ public class ActivitiesFragment extends Fragment implements UIthread {
      //   b.putInt("sportID", Integer.valueOf(sportIDs.get(sportID).sportID));
         b.putInt("sportID",8008);
         b.putBoolean("liga", false);
-        Intent intent = new Intent(parentActivity, CreateNewMeeting.class);
-        intent.putExtras(b);
-        startActivity(intent);
+//        Intent intent = new Intent(parentActivity, CreateNewMeeting.class);
+//        intent.putExtras(b);
+//        startActivity(intent);
     }
 
     private void initSpinner() {

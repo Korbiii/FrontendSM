@@ -1,12 +1,14 @@
 package com.android.brogrammers.sportsm8.calendarTab.createNewMeetingMVP;
 
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import androidx.activity.result.ActivityResult;
 
+import com.android.brogrammers.sportsm8.R;
 import com.android.brogrammers.sportsm8.dataBaseConnection.databaseClasses.Group;
 import com.android.brogrammers.sportsm8.dataBaseConnection.databaseClasses.Meeting;
 import com.android.brogrammers.sportsm8.dataBaseConnection.databaseClasses.Sport;
@@ -18,7 +20,6 @@ import com.android.brogrammers.sportsm8.dataBaseConnection.repositories.SportsRe
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import io.reactivex.Scheduler;
@@ -109,15 +110,15 @@ public class CreateNewMeetingViewPresenter {
         }
     }
 
-    private void checkMemberCount() {
-        view.displayIfEnoughMembersSelected(Selection.size() < meeting.minParticipants,Selection.size());
+    private void checkIfEnoughParticipants() {
+        view.displayIfEnoughParticipantsSelected(Selection.size() > meeting.minParticipants,Selection.size());
     }
     public void setMinTime(View v) {
         view.createNumberPickerDialog("Wie viele Stunden?", meeting.duration, 24,"minHours");
     }
 
     public void setMinPartysize(View v){
-        view.createNumberPickerDialog("Ab wie vielen Leuten?", meeting.minParticipants, 30,"minMemberCount");
+        view.createNumberPickerDialog("Ab wie vielen Leuten?", meeting.minParticipants, 30,"minParticipantsCount");
     }
 
     public void setStartTime(int hourOfDay,int minute){
@@ -143,7 +144,7 @@ public class CreateNewMeetingViewPresenter {
             SelectionGroup = (ArrayList<Group>) bundle.getSerializable("groupList");
         }
         mergeGroupsAndFriends();
-        checkMemberCount();
+        checkIfEnoughParticipants();
     }
 
     List<String> getSearchResults(String searchString){
@@ -159,19 +160,19 @@ public class CreateNewMeetingViewPresenter {
 
     public void createMeeting(View v) {
         if (Selection.size() < meeting.minParticipants) {
-            view.showErrorToast("Das Meeting hat nicht genug Teilnehmer ausgewählt");
+            view.showErrorToast(Resources.getSystem().getString(R.string.not_enough_participants));
             return;
         }
         if (meeting.endTime.isBefore(meeting.startTime)) {
-            view.showErrorToast("Das Meeting endet bevor es startet.");
+            view.showErrorToast(Resources.getSystem().getString(R.string.meeting_ends_before_start));
             return;
         }
-        Map<String, String> members = new HashMap<>();
+        Map<String, String> participants = new HashMap<>();
         for (int i = 0; i < Selection.size(); i++) {
-            members.put("members" + i, Selection.get(i).email);
+            participants.put("members" + i, Selection.get(i).email);
         }
 
-        meetingsRepository.createMeeting(meeting,members)
+        meetingsRepository.createMeeting(meeting,participants)
                 .observeOn(mainScheduler)
                 .subscribe(new DisposableCompletableObserver() {
                     @Override
@@ -182,7 +183,7 @@ public class CreateNewMeetingViewPresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        view.showErrorToast("Etwas ist schiefgelaufen bei dem Erstellen des Meetings");
+                        view.showErrorToast(Resources.getSystem().getString(R.string.error_msg_create_meeting));
                         dispose();
                     }
                 });
@@ -197,7 +198,7 @@ public class CreateNewMeetingViewPresenter {
                 meeting.meetingActivity = choosenSport;
             }
         }
-        view.setMinMemberCount(meeting.minParticipants);
-        checkMemberCount();
+        view.setMinimumNumberOfParticipants(meeting.minParticipants);
+        checkIfEnoughParticipants();
     }
 }

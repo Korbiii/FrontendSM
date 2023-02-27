@@ -22,7 +22,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.android.brogrammers.sportsm8.calendarTab.calendarFragmentMVP.CalenderFragment;
-import com.android.brogrammers.sportsm8.calendarTab.CreateNewMeeting;
 import com.android.brogrammers.sportsm8.calendarTab.createNewMeetingMVP.CreateNewMeetingActivity;
 import com.android.brogrammers.sportsm8.matchFeedTab.socialFeedFragment.SocialFeedActivity;
 import com.android.brogrammers.sportsm8.socialTab.FragmentSocial;
