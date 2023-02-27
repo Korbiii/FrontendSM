@@ -3,6 +3,7 @@ package com.android.brogrammers.sportsm8.dataBaseConnection.repositories.impl;
 import com.android.brogrammers.sportsm8.dataBaseConnection.APIUtils;
 import com.android.brogrammers.sportsm8.dataBaseConnection.apiServices.MeetingApiService;
 import com.android.brogrammers.sportsm8.dataBaseConnection.databaseClasses.Meeting;
+import com.android.brogrammers.sportsm8.dataBaseConnection.databaseClasses.UserInfo;
 import com.android.brogrammers.sportsm8.dataBaseConnection.repositories.MeetingsRepository;
 import com.android.brogrammers.sportsm8.userClasses.LoginScreen;
 import com.google.gson.JsonObject;
@@ -12,6 +13,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -56,6 +58,12 @@ public class DatabaseMeetingsRepository implements MeetingsRepository {
     @Override
     public Completable declineMeeting(Meeting meeting) {
         return apiService.declineMeeting(meeting.meetingID,email);
+    }
+
+    @Override
+    public Completable createMeeting(Meeting meeting, Map<String,String> Selection) {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-YYYY HH:mm:ss");;
+        return apiService.createMeeting(formatter.print(meeting.startTime),formatter.print(meeting.endTime),meeting.minParticipants,email,meeting.meetingActivity, meeting.sportID, meeting.dynamic,Selection,meeting.longitude, meeting.latitude);
     }
 
 

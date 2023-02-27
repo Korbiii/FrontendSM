@@ -81,6 +81,11 @@
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".calendarTab.createNewMeetingMVP.CreateNewMeetingActivity"
+            android:label="@string/title_activity_create_new_meeting2"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".socialTab.teams.teamsDetailView.TeamDetailActivity"
             android:label="TeamDetail"
             android:exported="false"

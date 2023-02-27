@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.android.brogrammers.sportsm8.calendarTab.calendarFragmentMVP.CalenderFragment;
 import com.android.brogrammers.sportsm8.calendarTab.CreateNewMeeting;
+import com.android.brogrammers.sportsm8.calendarTab.createNewMeetingMVP.CreateNewMeetingActivity;
 import com.android.brogrammers.sportsm8.matchFeedTab.socialFeedFragment.SocialFeedActivity;
 import com.android.brogrammers.sportsm8.socialTab.FragmentSocial;
 import com.android.brogrammers.sportsm8.socialTab.friends.OnlyFriendsView;
@@ -211,7 +212,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void createNewMeeting() {
         CalenderFragment calenderFragment = (CalenderFragment) fragmentManager.findFragmentByTag("calendar");
         DateTime dateTime = calenderFragment.getSelectedDate().toDateTime();
-        Intent intent = new Intent(this, CreateNewMeeting.class);
+//        Intent intent = new Intent(this, CreateNewMeeting.class);
+        Intent intent = new Intent(this, CreateNewMeetingActivity.class);
         intent.putExtra("date", dateTime.toString("dd/MM/yyyy"));
         startActivityForResult(intent, 3);
     }

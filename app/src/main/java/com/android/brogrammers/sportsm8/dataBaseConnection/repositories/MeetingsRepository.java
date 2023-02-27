@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import org.joda.time.DateTime;
 
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -20,4 +21,5 @@ public interface MeetingsRepository {
     Completable confirmMeeting(Meeting meeting);
     Completable setOtherTime(Meeting meeting, DateTime start, DateTime end);
     Completable declineMeeting(Meeting meeting);
+    Completable createMeeting(Meeting meeting, Map<String,String> Selection);
 }

@@ -8,6 +8,7 @@ import android.os.Parcelable;
 
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 /**
  * Created by Korbi on 03.06.2017.
@@ -18,25 +19,30 @@ public class Meeting extends BaseObservable implements Parcelable {
     public int meetingID;
 
 
-    private int confirmed = 0;
+    public int confirmed = 0;
     public int minParticipants;
     public int duration;
     public int dynamic;
     public int sportID;
     public int status;
     public String meetingActivity;
-    private DateTime startTime;
-    private DateTime endTime;
-    private DateTime mystartTime;
-    private DateTime myendTime;
-    private String day;
+    public DateTime startTime;
+    public DateTime endTime;
+    public DateTime mystartTime;
+    public DateTime myendTime;
+    public String day;
     public float longitude, latitude;
-    private String mytime;
+    public String mytime;
 
-    public Meeting(int meetingID, int minParticipants) {
+
+    public Meeting() {
         super();
-        this.meetingID = meetingID;
+    }
+    public Meeting(int minParticipants,int duration){
+        this.duration = duration;
         this.minParticipants = minParticipants;
+        this.startTime = new DateTime();
+        this.endTime = new DateTime();
     }
 
 

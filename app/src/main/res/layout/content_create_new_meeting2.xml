@@ -39,8 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@{newMeeting.dynamic == 0 ? @color/colorPrimary : @color/grey}"
-                android:onClick="@{()->newMeeting.setDynamic(0)}"
+                android:background="@color/grey"
                 android:text="Fixed Time"
                 android:textAllCaps="false"
                 android:textColor="@color/white" />
@@ -50,8 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@{newMeeting.dynamic == 1 ? @color/colorPrimary : @color/grey}"
-                android:onClick="@{()->newMeeting.setDynamic(1)}"
+                android:background="@color/colorPrimary"
                 android:text="Fluent Time"
                 android:textAllCaps="false"
                 android:textColor="@color/white" />
@@ -61,8 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@{newMeeting.dynamic == 2 ? @color/colorPrimary : @color/grey}"
-                android:onClick="@{()->newMeeting.setDynamic(2)}"
+                android:background="@color/grey"
                 android:text="Free Time"
                 android:textAllCaps="false"
                 android:textColor="@color/white" />

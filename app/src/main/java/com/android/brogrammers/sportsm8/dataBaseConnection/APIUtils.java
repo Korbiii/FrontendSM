@@ -6,6 +6,7 @@ import com.android.brogrammers.sportsm8.dataBaseConnection.apiServices.AccountAp
 import com.android.brogrammers.sportsm8.dataBaseConnection.apiServices.FriendshipsApiService;
 import com.android.brogrammers.sportsm8.dataBaseConnection.apiServices.GroupsApiService;
 import com.android.brogrammers.sportsm8.dataBaseConnection.apiServices.MeetingApiService;
+import com.android.brogrammers.sportsm8.dataBaseConnection.apiServices.SportsApiService;
 import com.android.brogrammers.sportsm8.dataBaseConnection.apiServices.TeamsApiService;
 
 public class APIUtils {
@@ -36,5 +37,8 @@ public class APIUtils {
 
     public static AccountApiService getAccountAPIService(){
         return RetroFitClient.getClient(BASE_URL).create(AccountApiService.class);
+    }
+    public static SportsApiService getSportsApiService(){
+        return RetroFitClient.getClient(BASE_URL).create(SportsApiService.class);
     }
 }
