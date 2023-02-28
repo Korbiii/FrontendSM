@@ -48,7 +48,9 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_search_new_friends" />
+    <include layout="@layout/content_search_new_friends"
+        android:id="@+id/include"
+        />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -53,8 +53,10 @@
         <entry key="..\:/_Projekte/Android/Freizeitliga/app/src/main/res/layout/activity_debug_screen.xml" value="0.2552083333333333" />
         <entry key="..\:/_Projekte/Android/Freizeitliga/app/src/main/res/layout/activity_home.xml" value="0.2598958333333333" />
         <entry key="..\:/_Projekte/Android/Freizeitliga/app/src/main/res/layout/activity_meeting_detail_view.xml" value="0.2598958333333333" />
+        <entry key="..\:/_Projekte/Android/Freizeitliga/app/src/main/res/layout/activity_search_new_friends.xml" value="0.22695035460992907" />
         <entry key="..\:/_Projekte/Android/Freizeitliga/app/src/main/res/layout/content_create_new_meeting2.xml" value="0.22695035460992907" />
         <entry key="..\:/_Projekte/Android/Freizeitliga/app/src/main/res/layout/content_meeting_detail_view.xml" value="0.22695035460992907" />
+        <entry key="..\:/_Projekte/Android/Freizeitliga/app/src/main/res/layout/content_search_new_friends.xml" value="0.22695035460992907" />
         <entry key="..\:/_Projekte/Android/Freizeitliga/app/src/main/res/layout/item_meetings.xml" value="0.22291666666666668" />
       </map>
     </option>

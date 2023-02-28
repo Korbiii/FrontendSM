@@ -4,13 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,119 +18,86 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.brogrammers.sportsm8.dataBaseConnection.apiServices.FriendshipsApiService;
 import com.android.brogrammers.sportsm8.R;
+import com.android.brogrammers.sportsm8.dataBaseConnection.repositories.AccountRepository;
+import com.android.brogrammers.sportsm8.dataBaseConnection.repositories.FriendshipRepository;
+import com.android.brogrammers.sportsm8.dataBaseConnection.repositories.impl.DatabaseAccountRepository;
+import com.android.brogrammers.sportsm8.dataBaseConnection.repositories.impl.DatabaseFriendshipRepository;
+import com.android.brogrammers.sportsm8.databinding.ActivitySearchNewFriendsBinding;
+import com.android.brogrammers.sportsm8.databinding.ContentSearchNewFriendsBinding;
 import com.android.brogrammers.sportsm8.socialTab.ClickListener;
 import com.android.brogrammers.sportsm8.dataBaseConnection.APIUtils;
 import com.android.brogrammers.sportsm8.dataBaseConnection.databaseClasses.UserInfo;
 import com.android.brogrammers.sportsm8.dataBaseConnection.RetroFitClient;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.observers.DisposableSingleObserver;
 
-public class OnlyFriendsView extends AppCompatActivity implements SearchView.OnQueryTextListener, ClickListener {
+public class OnlyFriendsView extends AppCompatActivity implements SearchView.OnQueryTextListener, ClickListener, OnlyFriendsViewInterface {
 
-    private RecyclerView recyclerView;
-    private FriendsListAdapter adapter;
-    private List<UserInfo> friends;
+
     private Boolean search = false;
-    private Toolbar toolbar;
+    private FriendsListAdapter adapter;
     private ActionMode actionMode;
-    private OnlyFriendsView.ActionModeCallBack actionModeCallBack = new OnlyFriendsView.ActionModeCallBack();
-    private FriendshipsApiService apiService = APIUtils.getFriendshipsAPIService();
+    private final OnlyFriendsView.ActionModeCallBack actionModeCallBack = new OnlyFriendsView.ActionModeCallBack();
+
+    private OnlyFriendsPresenter presenter;
+
+    private ActivitySearchNewFriendsBinding binding;
+    private ContentSearchNewFriendsBinding include;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_new_friends);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        presenter = new OnlyFriendsPresenter(this, new DatabaseFriendshipRepository(),AndroidSchedulers.mainThread());
+        binding = ActivitySearchNewFriendsBinding.inflate(getLayoutInflater());
+        include = binding.include;
+        View view = binding.getRoot();
+        setContentView(view);
+        setSupportActionBar(binding.toolbar);
+
+        adapter = new FriendsListAdapter(getBaseContext(),null,presenter.friends,search);
+        binding.searchviewNewFriends.setOnQueryTextListener(this);
+        binding.searchviewNewFriends.setIconified(false);
+
+        include.addNewFriendRecyclerview.setAdapter(adapter);
+        include.addNewFriendRecyclerview.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+
         Bundle b = getIntent().getExtras();
         search = b.getBoolean("search");
-        ImageButton addMembers = (ImageButton) findViewById(R.id.image_button_add_groupmembers);
-        SearchView searchView = (SearchView) findViewById(R.id.searchview_new_friends);
-        searchView.setOnQueryTextListener(this);
-        searchView.setIconified(false);
-        recyclerView = (RecyclerView) findViewById(R.id.add_new_friend_recyclerview);
-        friends = new ArrayList<>();
-        adapter = new FriendsListAdapter(getBaseContext(), null, friends, search);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-
         if (!search) {
-            searchView.setVisibility(View.GONE);
-            addMembers.setVisibility(View.VISIBLE);
-            actionMode = startSupportActionMode((ActionMode.Callback) actionModeCallBack);
-            getFriends();
+            binding.searchviewNewFriends.setVisibility(View.GONE);
+            binding.imageButtonAddGroupmembers.setVisibility(View.VISIBLE);
+            actionMode = startActionMode((ActionMode.Callback) actionModeCallBack);
+            presenter.getFriends();
         }
     }
 
     public void onClick(View view) {
-
-        List<UserInfo> selectionfriends = new ArrayList<>();
-        for (int i = 0; i < friends.size(); i++) {
-            if (friends.get(i).selected) {
-                selectionfriends.add(friends.get(i));
-            }
+        List<UserInfo> selectionFriends = new ArrayList<>();
+        for(UserInfo friend : presenter.friends){
+            if(friend.selected) selectionFriends.add(friend);
         }
         Bundle bundle = new Bundle();
-        bundle.putSerializable("partyList", new ArrayList<>(selectionfriends));
+        bundle.putSerializable("partyList", new ArrayList<>(selectionFriends));
         Intent intent = new Intent();
         intent.putExtras(bundle);
         setResult(RESULT_OK, intent);
         finish();
     }
 
-    private void getSearchResults(String search) {
-        SharedPreferences sharedPrefs = getBaseContext().getSharedPreferences("loginInformation", Context.MODE_PRIVATE);
-        String email = sharedPrefs.getString("email", "");
-        apiService.searchFriends(email,search)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<List<UserInfo>>() {
-                    @Override
-                    public void onSuccess(@NonNull List<UserInfo> searchResults) {
-                        RetroFitClient.storeObjectList(new ArrayList<Object>(searchResults),"friends",getBaseContext());
-                        //updateUI("");
-                    }
 
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-
-                    }
-                });
-//        String[] params = {"IndexFriendship.php", "function", "searchNewFriend", "email", email, "friendname", search};
-//        Database db = new Database(this, getBaseContext());
-//        db.execute(params);
-
-    }
-
-    private void getFriends() {
-//        SharedPreferences sharedPrefs = getSharedPreferences("IndexFriendship", Context.MODE_PRIVATE);
-//        String meetingJson = sharedPrefs.getString("IndexFriendshipgetFriendsJSON", "");
-//        try {
-//            friends = Database.jsonToArrayList(meetingJson);
-//        } catch (JSONException | ParseException e) {
-//            e.printStackTrace();
-//        }
-//        Iterator<Information> itr = friends.iterator();
-//        while (itr.hasNext()) {
-//            Information info = itr.next();
-//            if (Integer.valueOf(info.getConfirmed()) == 0) {
-//                itr.remove();
-//            }
-//        }
-        adapter = new FriendsListAdapter(getBaseContext(), this, friends, search);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-        //("");
+    @Override
+    public void createAdapter(){
+        adapter = new FriendsListAdapter(getBaseContext(), this, presenter.friends, search);
+        include.addNewFriendRecyclerview.setAdapter(adapter);
+        include.addNewFriendRecyclerview.setLayoutManager(new LinearLayoutManager(getBaseContext()));
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        getSearchResults(query);
+        presenter.getSearchResults(query);
         return true;
     }
 
@@ -142,7 +109,7 @@ public class OnlyFriendsView extends AppCompatActivity implements SearchView.OnQ
 
     @Override
     public void onItemClicked(int position, Boolean fromGroup) {
-        friends.get(position).selected ^= true;
+        presenter.friends.get(position).selected ^= true;
         toggleSelection(position, false);
     }
 
@@ -169,24 +136,20 @@ public class OnlyFriendsView extends AppCompatActivity implements SearchView.OnQ
 
         @Override
         public boolean onActionItemClicked(android.view.ActionMode actionMode, MenuItem menuItem) {
-            switch (menuItem.getItemId()) {
-                case R.id.menu_add:
-                    List<UserInfo> selectionfriends = new ArrayList<>();
-                    for (int i = 0; i < friends.size(); i++) {
-                        if (friends.get(i).selected) {
-                            selectionfriends.add(friends.get(i));
-                        }
-                    }
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("partyList", new ArrayList<>(selectionfriends));
-                    Intent intent = new Intent();
-                    intent.putExtras(bundle);
-                    setResult(RESULT_OK, intent);
-                    finish();
-                    return true;
-                default:
-                    return false;
+            if (menuItem.getItemId() == R.id.menu_add) {
+                List<UserInfo> selectionFriends = new ArrayList<>();
+                for (UserInfo friend : presenter.friends) {
+                    if (friend.selected) selectionFriends.add(friend);
+                }
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("partyList", new ArrayList<>(selectionFriends));
+                Intent intent = new Intent();
+                intent.putExtras(bundle);
+                setResult(RESULT_OK, intent);
+                finish();
+                return true;
             }
+            return false;
         }
 
         @Override

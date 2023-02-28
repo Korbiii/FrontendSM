@@ -1,5 +1,7 @@
 package com.android.brogrammers.sportsm8.dataBaseConnection.repositories.impl;
 
+import com.android.brogrammers.sportsm8.dataBaseConnection.apiServices.AccountApiService;
+import com.android.brogrammers.sportsm8.dataBaseConnection.apiServices.FriendshipsApiService;
 import com.android.brogrammers.sportsm8.dataBaseConnection.apiServices.MeetingApiService;
 import com.android.brogrammers.sportsm8.userClasses.LoginScreen;
 import com.android.brogrammers.sportsm8.dataBaseConnection.APIUtils;
@@ -17,20 +19,26 @@ import okhttp3.ResponseBody;
 
 public class DatabaseUserRepository implements UserRepository {
 
-    private MeetingApiService apiService;
+    private final MeetingApiService meetingApiService;
+    private final AccountApiService accountApiService;
+    private final FriendshipsApiService friendshipsApiService;
+    String email;
 
     public DatabaseUserRepository() {
-        apiService = APIUtils.getMeetingAPIService();
+        meetingApiService = APIUtils.getMeetingAPIService();
+        accountApiService = APIUtils.getAccountAPIService();
+        friendshipsApiService = APIUtils.getFriendshipsAPIService();
+        email = LoginScreen.getRealEmail();
     }
 
     @Override
     public Single<List<UserInfo>> getUsers(final int meetingID) {
-        return apiService.getMemberList(meetingID);
+        return meetingApiService.getMemberList(meetingID);
     }
 
     @Override
     public Completable addUsersToMeeting(final int meetingID, final Map<String, String> membersMap) {
-        return apiService.addMembersToMeeting(meetingID,membersMap);
+        return meetingApiService.addMembersToMeeting(meetingID,membersMap);
     }
 ////////////////////////////////////////////////////
     @Override
@@ -39,14 +47,13 @@ public class DatabaseUserRepository implements UserRepository {
             return Single.fromCallable(new Callable<ResponseBody>() {
                 @Override
                 public ResponseBody call() throws Exception {
-                    return apiService.confirmMeeting2("confirmAtt", meeting.meetingID, LoginScreen.getRealEmail()).execute().body();
+                    return meetingApiService.confirmMeeting2("confirmAtt", meeting.meetingID, LoginScreen.getRealEmail()).execute().body();
                 }
             });
         } else {
           return null;
         }
     }
-
 
 }
 

@@ -14,9 +14,7 @@ import okhttp3.ResponseBody;
  * Created by Korbi on 07.06.2017.
  */
 
-public interface UserRepository {
-   Single<List<UserInfo>> getUsers(int meetingID);
-   Completable addUsersToMeeting(int meetingID, Map<String, String> membersMap);
-   Single<ResponseBody> confirmMeeting(Meeting meeting);
-
+public interface FriendshipRepository {
+   Single<List<UserInfo>> getFriends();
+   Single<List<UserInfo>> searchFriends(String searchString);
 }

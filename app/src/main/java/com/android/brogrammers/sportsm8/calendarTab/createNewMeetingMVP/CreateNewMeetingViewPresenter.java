@@ -111,7 +111,7 @@ public class CreateNewMeetingViewPresenter {
     }
 
     public void checkIfEnoughParticipants() {
-        view.displayIfEnoughParticipantsSelected(Selection.size() > meeting.minParticipants+1,Selection.size());
+        view.displayIfEnoughParticipantsSelected(Selection.size()+1 >= meeting.minParticipants,Selection.size());
     }
     public void setMinTime(View v) {
         view.createNumberPickerDialog("Wie viele Stunden?", meeting.duration, 24,"minHours");
@@ -159,7 +159,7 @@ public class CreateNewMeetingViewPresenter {
 
 
     public void createMeeting(View v) {
-        if (Selection.size() < meeting.minParticipants) {
+        if (Selection.size()+1 < meeting.minParticipants) {
             view.showErrorToast("Not Enough Participants selected");
             return;
         }

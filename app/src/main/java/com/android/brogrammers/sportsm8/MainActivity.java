@@ -314,14 +314,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public final void callUpdater(){
-        AppUpdater appUpdater = new AppUpdater(this)
-                .setUpdateFrom(UpdateFrom.JSON)
-                .setUpdateJSON("http://sportsm8.bplaced.net/Update/update.json")
-                .setDisplay(Display.DIALOG)
-                .showAppUpdated(true);
-        appUpdater.start();
-    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
