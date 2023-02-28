@@ -291,11 +291,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void getNumberOfUnanswered() {
         int x = 0;
-//        for (int i = 0; i < arrayListMeetings.size(); i++) {
-//            if (arrayListMeetings.get(i).confirmed != 1) {
-//                x++;
-//            }
-//        }
         BottomBarTab calendar = bottomBar.getTabAtPosition(1);
         calendar.setBadgeCount(x);
     }
