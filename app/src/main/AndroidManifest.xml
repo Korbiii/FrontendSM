@@ -47,10 +47,6 @@
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ZZOldClassers.CreateNewMeetingOld"
-            android:exported="false"
-            android:theme="@style/AppTheme.Custom1" />
-        <activity
             android:name=".userClasses.accountPage.AccountPage"
             android:label="@string/title_activity_account_page"
             android:parentActivityName=".MainActivity"

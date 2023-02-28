@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.brogrammers.sportsm8.dataBaseConnection.apiServices.APIService;
 import com.android.brogrammers.sportsm8.dataBaseConnection.APIUtils;
-import com.android.brogrammers.sportsm8.ZZOldClassers.UIthread;
 import com.android.brogrammers.sportsm8.MainActivity;
 import com.android.brogrammers.sportsm8.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,9 +20,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Action;
 
-public class RegisterActivity extends AppCompatActivity implements UIthread {
+public class RegisterActivity extends AppCompatActivity{
 
     private static final String TAG = "";
     protected EditText username;
@@ -102,22 +100,6 @@ public class RegisterActivity extends AppCompatActivity implements UIthread {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
                 });
-    }
-
-
-    @Override
-    public void updateUI() {
-
-    }
-
-    @Override
-    public void updateUI(String answer) {
-
-            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-            startActivity(intent);
-            RegisterActivity.this.finish();
-
-
     }
 
 

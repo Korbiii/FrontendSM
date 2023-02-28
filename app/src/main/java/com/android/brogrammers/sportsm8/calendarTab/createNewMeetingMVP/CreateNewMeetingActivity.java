@@ -121,6 +121,7 @@ public class CreateNewMeetingActivity
             binding.etChooseActivity.setCursorVisible(false);
             include.lvMeetingActivities.setVisibility(View.GONE);
             presenter.chooseSport(searchResults.get(position));
+            presenter.checkIfEnoughParticipants();
         });
 
     }
@@ -152,7 +153,6 @@ public class CreateNewMeetingActivity
     public void setDynamic(View v, int dynamicValue) {
         presenter.meeting.dynamic = dynamicValue;
         findViewById(R.id.dynamic_time_button).setBackgroundColor(dynamicValue == 2 ? ContextCompat.getColor(this, R.color.colorPrimary) : ContextCompat.getColor(this, R.color.grey));
-        findViewById(R.id.fluent_time_button).setBackgroundColor(dynamicValue == 1 ? ContextCompat.getColor(this, R.color.colorPrimary) : ContextCompat.getColor(this, R.color.grey));
         findViewById(R.id.fluent_time_button).setBackgroundColor(dynamicValue == 1 ? ContextCompat.getColor(this, R.color.colorPrimary) : ContextCompat.getColor(this, R.color.grey));
         findViewById(R.id.fixed_time_button).setBackgroundColor(dynamicValue == 0 ? ContextCompat.getColor(this, R.color.colorPrimary) : ContextCompat.getColor(this, R.color.grey));
     }

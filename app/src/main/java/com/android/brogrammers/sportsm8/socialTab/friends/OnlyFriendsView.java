@@ -22,7 +22,6 @@ import com.android.brogrammers.sportsm8.socialTab.ClickListener;
 import com.android.brogrammers.sportsm8.dataBaseConnection.APIUtils;
 import com.android.brogrammers.sportsm8.dataBaseConnection.databaseClasses.UserInfo;
 import com.android.brogrammers.sportsm8.dataBaseConnection.RetroFitClient;
-import com.android.brogrammers.sportsm8.ZZOldClassers.UIthread;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableSingleObserver;
 
-public class OnlyFriendsView extends AppCompatActivity implements UIthread, SearchView.OnQueryTextListener, ClickListener {
+public class OnlyFriendsView extends AppCompatActivity implements SearchView.OnQueryTextListener, ClickListener {
 
     private RecyclerView recyclerView;
     private FriendsListAdapter adapter;
@@ -94,7 +93,7 @@ public class OnlyFriendsView extends AppCompatActivity implements UIthread, Sear
                     @Override
                     public void onSuccess(@NonNull List<UserInfo> searchResults) {
                         RetroFitClient.storeObjectList(new ArrayList<Object>(searchResults),"friends",getBaseContext());
-                        updateUI("");
+                        //updateUI("");
                     }
 
                     @Override
@@ -126,28 +125,7 @@ public class OnlyFriendsView extends AppCompatActivity implements UIthread, Sear
         adapter = new FriendsListAdapter(getBaseContext(), this, friends, search);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-        updateUI("");
-    }
-
-    @Override
-    public void updateUI() {
-
-    }
-
-    @Override
-    public void updateUI(String answer) {
-//        SharedPreferences sharedPrefs = getSharedPreferences("IndexFriendship", Context.MODE_PRIVATE);
-//        String meetingJson = sharedPrefs.getString("IndexFriendshipsearchNewFriendJSON", "");
-//        try {
-//            friends = Database.jsonToArrayList(meetingJson);
-//        } catch (JSONException | ParseException e) {
-//            e.printStackTrace();
-//        }
-        friends = (ArrayList<UserInfo>) RetroFitClient.retrieveObjectList("friends", getBaseContext(), new TypeToken<ArrayList<UserInfo>>() {
-        }.getType());
-        adapter = new FriendsListAdapter(getBaseContext(), this, friends, search);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        //("");
     }
 
     @Override

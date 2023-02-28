@@ -28,8 +28,6 @@ import com.android.brogrammers.sportsm8.socialTab.FragmentSocial;
 import com.android.brogrammers.sportsm8.socialTab.friends.OnlyFriendsView;
 import com.android.brogrammers.sportsm8.userClasses.accountPage.AccountPage;
 import com.android.brogrammers.sportsm8.userClasses.LoginScreen;
-import com.android.brogrammers.sportsm8.ZDebugScreen.DebugScreen;
-import com.android.brogrammers.sportsm8.ZZOldClassers.ActivitiesFragment;
 import com.github.javiersantos.appupdater.AppUpdater;
 import com.github.javiersantos.appupdater.enums.Display;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
@@ -57,7 +55,7 @@ import butterknife.OnClick;
  * Created by alex on 10/30/2016.
  */
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, CalenderFragment.OnFragmentInteractionListener,ActivitiesFragment.OnFragmentInteractionListener, FragmentSocial.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, CalenderFragment.OnFragmentInteractionListener, FragmentSocial.OnFragmentInteractionListener {
 
     private FragmentManager fragmentManager;
     private DrawerLayout mDrawerLayout;
@@ -280,11 +278,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         return true;
                     case R.id.nav_home:
                         intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                        closeNavDrawer();
-                        return true;
-                    case R.id.nav_debug:
-                        intent = new Intent(getApplicationContext(), DebugScreen.class);
                         startActivity(intent);
                         closeNavDrawer();
                         return true;

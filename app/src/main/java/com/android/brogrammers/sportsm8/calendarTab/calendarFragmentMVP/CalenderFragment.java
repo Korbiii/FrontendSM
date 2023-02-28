@@ -69,7 +69,7 @@ public class CalenderFragment extends Fragment implements ViewPager.OnPageChange
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment CalenderFragmentOld.
+     * @return A new instance of fragment CalenderFragment.
      */
     public static CalenderFragment newInstance(String param1, String param2) {
         return new CalenderFragment();

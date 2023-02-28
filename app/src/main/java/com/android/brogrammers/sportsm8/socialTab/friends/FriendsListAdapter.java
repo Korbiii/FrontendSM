@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.android.brogrammers.sportsm8.dataBaseConnection.APIUtils;
 import com.android.brogrammers.sportsm8.dataBaseConnection.apiServices.FriendshipsApiService;
 import com.android.brogrammers.sportsm8.dataBaseConnection.databaseClasses.UserInfo;
-import com.android.brogrammers.sportsm8.ZZOldClassers.UIthread;
 import com.android.brogrammers.sportsm8.R;
 import com.android.brogrammers.sportsm8.socialTab.adapter.SelectableAdapter;
 import com.android.brogrammers.sportsm8.socialTab.ClickListener;
@@ -131,7 +130,7 @@ public class FriendsListAdapter extends SelectableAdapter<FriendsListAdapter.MyV
     }
 
 
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener, UIthread {
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         TextView username;
         TextView email;
         ImageView profileP;
@@ -237,15 +236,7 @@ public class FriendsListAdapter extends SelectableAdapter<FriendsListAdapter.MyV
             return false;
         }
 
-        @Override
-        public void updateUI() {
 
-        }
-
-        @Override
-        public void updateUI(String answer) {
-
-        }
 
     }
 

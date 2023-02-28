@@ -54,7 +54,7 @@ public class MeetingDetailViewPresenter extends BaseObservable {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         view.showError();
-                        Log.d(TAG, "Members could not be laoded");
+                        Log.d(TAG, "Members could not be loaded");
                     }
                 }));
     }
@@ -64,14 +64,15 @@ public class MeetingDetailViewPresenter extends BaseObservable {
         for (int i = 0; i < selection.size(); i++) {
             membersMap.put("member" + i, selection.get(i).email);
         }
-        userRepository.addUsersToMeeting(meeting.meetingID,membersMap)
+        compositeDisposable.add(userRepository.addUsersToMeeting(meeting.meetingID,membersMap)
                 .observeOn(mainScheduler)
                 .subscribe(new Action() {
                     @Override
                     public void run() throws Exception {
                         view.updateMemberList();
+
                     }
-                });
+                }));
     }
 
 

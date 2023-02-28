@@ -43,6 +43,7 @@ public class Meeting extends BaseObservable implements Parcelable {
         this.minParticipants = minParticipants;
         this.startTime = new DateTime();
         this.endTime = new DateTime();
+        this.dynamic = 1;
     }
 
 

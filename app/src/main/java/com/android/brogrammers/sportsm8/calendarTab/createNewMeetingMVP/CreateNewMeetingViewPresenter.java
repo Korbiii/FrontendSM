@@ -1,7 +1,6 @@
 package com.android.brogrammers.sportsm8.calendarTab.createNewMeetingMVP;
 
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -99,6 +98,7 @@ public class CreateNewMeetingViewPresenter {
                                     Selection.add(response.get(j));
                                 }
                             }
+                            checkIfEnoughParticipants();
                             dispose();
                         }
 
@@ -110,8 +110,8 @@ public class CreateNewMeetingViewPresenter {
         }
     }
 
-    private void checkIfEnoughParticipants() {
-        view.displayIfEnoughParticipantsSelected(Selection.size() > meeting.minParticipants,Selection.size());
+    public void checkIfEnoughParticipants() {
+        view.displayIfEnoughParticipantsSelected(Selection.size() > meeting.minParticipants+1,Selection.size());
     }
     public void setMinTime(View v) {
         view.createNumberPickerDialog("Wie viele Stunden?", meeting.duration, 24,"minHours");
@@ -160,11 +160,11 @@ public class CreateNewMeetingViewPresenter {
 
     public void createMeeting(View v) {
         if (Selection.size() < meeting.minParticipants) {
-            view.showErrorToast(Resources.getSystem().getString(R.string.not_enough_participants));
+            view.showErrorToast("Not Enough Participants selected");
             return;
         }
         if (meeting.endTime.isBefore(meeting.startTime)) {
-            view.showErrorToast(Resources.getSystem().getString(R.string.meeting_ends_before_start));
+            view.showErrorToast("The meeting ends before it starts!");
             return;
         }
         Map<String, String> participants = new HashMap<>();
@@ -183,7 +183,7 @@ public class CreateNewMeetingViewPresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        view.showErrorToast(Resources.getSystem().getString(R.string.error_msg_create_meeting));
+                        view.showErrorToast("Something went wrong while creating the Meeting");
                         dispose();
                     }
                 });
