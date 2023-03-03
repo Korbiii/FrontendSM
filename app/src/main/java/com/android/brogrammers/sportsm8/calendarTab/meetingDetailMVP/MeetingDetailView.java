@@ -11,7 +11,7 @@ import java.util.List;
 public interface MeetingDetailView {
     void displayMembers(List<UserInfo> members);
     void displayNoMembers();
-    void setUpprogressBar(int accepted,int total);
+    void setUpProgressBar(int accepted, int total);
     void updateMemberList();
     void showError();
 }

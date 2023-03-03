@@ -47,7 +47,7 @@ public class MeetingDetailViewPresenter extends BaseObservable {
                                 }
                             }
                             view.displayMembers(userInfos);
-                            view.setUpprogressBar(count, meeting.minParticipants);
+                            view.setUpProgressBar(count, meeting.minParticipants);
                         }
                     }
 

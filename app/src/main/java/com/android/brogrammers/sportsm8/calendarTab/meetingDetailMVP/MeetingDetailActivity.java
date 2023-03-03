@@ -151,7 +151,7 @@ public class MeetingDetailActivity extends AppCompatActivity implements SwipeRef
     }
 
     @Override
-    public void setUpprogressBar(int accepted, int total) {
+    public void setUpProgressBar(int accepted, int total) {
         include.progressBar.removeAllViews();
         for (int i = 0; i < total; i++) {
             ImageView imageView = new ImageView(getBaseContext());

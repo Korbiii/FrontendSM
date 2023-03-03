@@ -33,6 +33,7 @@ import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Action;
 import io.reactivex.observers.DisposableSingleObserver;
 
@@ -41,6 +42,7 @@ public class DayFragment extends Fragment {
     private List<Meeting> meetingsOnDay;
     private MeetingCardAdapter rvAdapter;
     private FloatingActionButton floatingActionButton;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final DatabaseMeetingsRepository meetingsRepository = new DatabaseMeetingsRepository();
     private int position;
 
@@ -130,16 +132,10 @@ public class DayFragment extends Fragment {
     }
 
     public void declineMeeting(final Meeting meeting) {
-        meetingsRepository.declineMeeting(meeting)
+       compositeDisposable.add(meetingsRepository.declineMeeting(meeting)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                         Toasty.info(getContext(), "Teilnahme abgesagt", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                .subscribe(() -> Toasty.info(getContext(), "Teilnahme abgesagt", Toast.LENGTH_SHORT).show()));
         rvAdapter.removeItem(meeting);
-
     }
 
     public boolean showDeclineButton(View view, Meeting meeting) {
@@ -170,9 +166,9 @@ public class DayFragment extends Fragment {
                         }
 
                         if (checked) {
-                            meetingsRepository.setOtherTime(meeting,startTime,endTime)
+                            compositeDisposable.add(meetingsRepository.setOtherTime(meeting,startTime,endTime)
                                     .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe(() -> Toasty.info(getContext(), "Andere Zeit gesetzt!", Toast.LENGTH_SHORT).show());
+                                    .subscribe(() -> Toasty.info(getContext(), "Andere Zeit gesetzt!", Toast.LENGTH_SHORT).show()));
 
                             position = meetingsOnDay.indexOf(meeting);
                             meetingsOnDay.get(position).setConfirmed(1);
@@ -194,26 +190,20 @@ public class DayFragment extends Fragment {
     }
 
     public void acceptMeeting(final Meeting meeting) {
-        meetingsRepository.confirmMeeting(meeting)
+        compositeDisposable.add(meetingsRepository.confirmMeeting(meeting)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                         Toasty.info(getContext(), "Meeting confirmed", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                .subscribe(() -> Toasty.info(getContext(), "Meeting confirmed", Toast.LENGTH_SHORT).show()));
 
         position = meetingsOnDay.indexOf(meeting);
         meetingsOnDay.get(position).setConfirmed(1);
         rvAdapter.setMeetingsOnDay(meetingsOnDay);
         rvAdapter.notifyDataSetChanged();
-        meetingsRepository.isMeetingReady(meeting)
+        compositeDisposable.add(meetingsRepository.isMeetingReady(meeting)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<JsonObject>() {
                     @Override
                     public void onSuccess(@io.reactivex.annotations.NonNull JsonObject jsonElement) {
-                        int x = 0;
-                        x = jsonElement.get("confirmed_number").getAsInt();
+                        int x = jsonElement.get("confirmed_number").getAsInt();
                         if (x >= meeting.minParticipants) {
                             meetingsOnDay.get(position).status = 1;
                             rvAdapter.setMeetingsOnDay(meetingsOnDay);
@@ -224,8 +214,9 @@ public class DayFragment extends Fragment {
                     @Override
                     public void onError(@io.reactivex.annotations.NonNull Throwable e) {
                         e.getMessage();
+                        Toasty.error(getContext(), "Couldn't fetch data regarding confirmation", Toast.LENGTH_SHORT).show();
                     }
-                });
+                }));
     }
 
     public static class CustomComperator implements Comparator<Meeting> {

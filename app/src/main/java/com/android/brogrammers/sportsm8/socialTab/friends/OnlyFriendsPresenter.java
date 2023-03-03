@@ -29,8 +29,6 @@ public class OnlyFriendsPresenter {
         this.view = view;
         this.friendshipRepository = friendshipRepository;
         this.mainScheduler = mainScheduler;
-
-
     }
 
     public void getFriends(){
@@ -51,7 +49,6 @@ public class OnlyFriendsPresenter {
     }
 
     public void getSearchResults(String search){
-
         compositeDisposable.add(friendshipRepository.searchFriends(search)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<List<UserInfo>>() {

@@ -2,9 +2,17 @@
 <resources>
 
     //MainColors
-    <color name="colorPrimary">#3f51b5</color>
-    <color name="colorPrimaryDark">#303f9f</color>
-    <color name="colorAccent">#d50000</color>
+    <color name="colorPrimary">#45A8A5</color>
+    <color name="colorPrimaryDark">#0C1D1C</color>
+    <color name="colorPrimaryBright">#D4EDEB</color>
+
+    <color name="ColorInformation">#2e5eaa</color>
+    <color name="ColorError">#b0413e</color>
+    <color name="ColorWarning">#FCAA67</color>
+    <color name="ColorSuccess">#cfffb0</color>
+
+    <color name="colorAccent">#FA198B</color>
+    <color name="colorText">#433E3F</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
     <color name="grey">#9e9e9e</color>
