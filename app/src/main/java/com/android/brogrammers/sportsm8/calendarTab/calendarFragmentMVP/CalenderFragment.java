@@ -22,6 +22,7 @@ import com.android.brogrammers.sportsm8.dataBaseConnection.repositories.impl.Dat
 import com.android.brogrammers.sportsm8.R;
 import com.android.brogrammers.sportsm8.ViewHelperClass;
 import com.android.brogrammers.sportsm8.dataBaseConnection.databaseClasses.Meeting;
+import com.android.brogrammers.sportsm8.databinding.FragmentCalendarBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
@@ -49,28 +50,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
  * create an instance of this fragment.
  */
 public class CalenderFragment extends Fragment implements ViewPager.OnPageChangeListener, SwipeRefreshLayout.OnRefreshListener,CalendarFragmentView {
-    ViewPager viewPager;
     CalendarViewPagerAdapter viewPagerAdapter;
     List<Meeting> meetings;
-    TabLayout tabLayout;
     Activity parentActivity;
-    SwipeRefreshLayout swipeRefreshLayout;
-    MaterialCalendarView calendarView;
-    TextView filterTV;
     private OnFragmentInteractionListener mListener;
 
     CalenderFragmentPresenter presenter;
+    private FragmentCalendarBinding binding;
 
     public CalenderFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment CalenderFragment.
-     */
     public static CalenderFragment newInstance(String param1, String param2) {
         return new CalenderFragment();
     }
@@ -88,23 +79,17 @@ public class CalenderFragment extends Fragment implements ViewPager.OnPageChange
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_calendar, container, false);
-        tabLayout = (TabLayout) rootView.findViewById(R.id.tabLayout);
-        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.calender_refresh);
-        swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setRefreshing(true);
-        viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
-        calendarView = (MaterialCalendarView) rootView.findViewById(R.id.calendar_calendar);
-        filterTV = (TextView) rootView.findViewById(R.id.filter_tv);
+        binding = FragmentCalendarBinding.inflate(inflater,container,false);
+        View rootView = binding.getRoot();
 
-        calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                viewPagerAdapter.setNeedsUpdate(true);
-                presenter.loadMeetings(new DateTime(date.getYear(),date.getMonth()+1,date.getDay(),0,0));
-                ViewHelperClass.expand(calendarView, 250);
-                scrollTo(0);
-            }
+        binding.swipeLayoutToRefreshCalendar.setOnRefreshListener(this);
+        binding.swipeLayoutToRefreshCalendar.setRefreshing(true);
+
+        binding.materialCalendarViewFragment.setOnDateChangedListener((OnDateSelectedListener) (widget, date, selected) -> {
+            viewPagerAdapter.setNeedsUpdate(true);
+            presenter.loadMeetings(new DateTime(date.getYear(),date.getMonth()+1,date.getDay(),0,0));
+            ViewHelperClass.expand(binding.materialCalendarViewFragment, 250);
+            scrollTo(0);
         });
         return rootView;
     }
@@ -117,26 +102,26 @@ public class CalenderFragment extends Fragment implements ViewPager.OnPageChange
             viewPagerAdapter.notifyDataSetChanged();
         }else{
             viewPagerAdapter = new CalendarViewPagerAdapter(this.getChildFragmentManager(),parentActivity.getApplicationContext(),meetings,startDate);
-            viewPager.setAdapter(viewPagerAdapter);
-            viewPager.addOnPageChangeListener(this);
-            tabLayout.setupWithViewPager(viewPager);
-            tabLayout.setSmoothScrollingEnabled(true);
+            binding.viewPager.setAdapter(viewPagerAdapter);
+            binding.viewPager.addOnPageChangeListener(this);
+            binding.tabLayoutCalendar.setupWithViewPager(binding.viewPager);
+            binding.tabLayoutCalendar.setSmoothScrollingEnabled(true);
         }
         customTabs(startDate);
         createHighlightList(highlights);
         viewPagerAdapter.setNeedsUpdate(false);
-        swipeRefreshLayout.setRefreshing(false);
+        binding.swipeLayoutToRefreshCalendar.setRefreshing(false);
     }
 
     @Override
     public void displayNoMeetings() {
          Toasty.info(getContext(), "No Meetings! Create some!", Toast.LENGTH_SHORT).show();
-         swipeRefreshLayout.setRefreshing(false);
+        binding.swipeLayoutToRefreshCalendar.setRefreshing(false);
     }
 
     private void customTabs(DateTime startDate) {
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
+        for (int i = 0; i < binding.tabLayoutCalendar.getTabCount(); i++) {
+            TabLayout.Tab tab = binding.tabLayoutCalendar.getTabAt(i);
             tab.setCustomView(null);
             tab.setCustomView(viewPagerAdapter.getTabView(startDate.plusDays(i),i));
         }
@@ -149,13 +134,13 @@ public class CalenderFragment extends Fragment implements ViewPager.OnPageChange
 
     public MutableDateTime getSelectedDate() {
         MutableDateTime dt = new MutableDateTime();
-        dt.addDays(tabLayout.getSelectedTabPosition());
+        dt.addDays(binding.tabLayoutCalendar.getSelectedTabPosition());
         return dt;
     }
 
     public void scrollTo(int i) {
-        if (tabLayout.getTabAt(i) != null) {
-            tabLayout.getTabAt(i).select();
+        if (binding.tabLayoutCalendar.getTabAt(i) != null) {
+            binding.tabLayoutCalendar.getTabAt(i).select();
         }
     }
 
@@ -166,7 +151,7 @@ public class CalenderFragment extends Fragment implements ViewPager.OnPageChange
 
     @Override
     public void onPageSelected(int position) {
-        int count = tabLayout.getTabCount();
+        int count = binding.tabLayoutCalendar.getTabCount();
         if (count < 60) {
             if (count - position == 1) {
                 Toasty.info(parentActivity, "Neue Tage geladen", Toast.LENGTH_SHORT).show();
@@ -183,32 +168,30 @@ public class CalenderFragment extends Fragment implements ViewPager.OnPageChange
     }
 
     public void toggleView(View view) {
-        switch (view.getId()) {
-            case R.id.setLocation:
-                ViewHelperClass.expand(filterTV, 250);
-                break;
-            case R.id.change_start_date:
-                ViewHelperClass.expand(calendarView, 250);
-                break;
+        int id = view.getId();
+        if (id == R.id.setLocation) {
+            ViewHelperClass.expand(binding.textviewLocationFilter, 250);
+        } else if (id == R.id.change_start_date) {
+            ViewHelperClass.expand(binding.materialCalendarViewFragment, 250);
         }
     }
 
     public void createHighlightList(List<CalendarDay> highlights) {
         EventDecorator eventDecorator = new EventDecorator(ContextCompat.getColor(getContext(), R.color.red), highlights);
-        calendarView.addDecorator(eventDecorator);
+        binding.materialCalendarViewFragment.addDecorator(eventDecorator);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        calendarView.setTileHeightDp(35);
-        calendarView.setTileWidth(displayMetrics.widthPixels / 8);
+        binding.materialCalendarViewFragment.setTileHeightDp(35);
+        binding.materialCalendarViewFragment.setTileWidth(displayMetrics.widthPixels / 8);
     }
 
     public void setLocation(double longitude, double latitude, boolean locationMode) {
         viewPagerAdapter.setNeedsUpdate(true);
-        presenter.setLocation(longitude,latitude,locationMode,tabLayout.getTabCount());
+        presenter.setLocation(longitude,latitude,locationMode,binding.tabLayoutCalendar.getTabCount());
     }
 
     public void setFilterText(CharSequence text) {
-        filterTV.setText("Meetings in:  " + text);
+        binding.textviewLocationFilter.setText(getString(R.string.meetings_location_display,text));
     }
 
 

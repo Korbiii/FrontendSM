@@ -60,13 +60,16 @@
         <entry key="..\:/_Projekte/Android/Freizeitliga/app/src/main/res/layout/content_create_new_meeting2.xml" value="0.22695035460992907" />
         <entry key="..\:/_Projekte/Android/Freizeitliga/app/src/main/res/layout/content_meeting_detail_view.xml" value="0.22695035460992907" />
         <entry key="..\:/_Projekte/Android/Freizeitliga/app/src/main/res/layout/content_search_new_friends.xml" value="0.22695035460992907" />
+        <entry key="..\:/_Projekte/Android/Freizeitliga/app/src/main/res/layout/fragment_calendar.xml" value="0.1" />
+        <entry key="..\:/_Projekte/Android/Freizeitliga/app/src/main/res/layout/fragment_day.xml" value="0.20677083333333332" />
         <entry key="..\:/_Projekte/Android/Freizeitliga/app/src/main/res/layout/item_meetings.xml" value="0.22291666666666668" />
+        <entry key="..\:/_Projekte/Android/Freizeitliga/app/src/main/res/layout/tab_item.xml" value="0.18541666666666667" />
       </map>
     </option>
   </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
-    <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />
+    <option name="myDefaultNotNull" value="androidx.annotation.NonNull" />
     <option name="myNullables">
       <value>
         <list size="12">

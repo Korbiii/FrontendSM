@@ -85,7 +85,6 @@ public class CreateNewMeetingActivity
         include.minMeetingTimeRL.setOnClickListener(presenter::setMinTime);
         include.minPartySizeRL.setOnClickListener(presenter::setMinPartysize);
 
-
         binding.cancelButton.setOnClickListener(this::cancel);
         binding.btnClearChooseActivity.setOnClickListener(this::clear);
         binding.saveMeeting.setOnClickListener(presenter::createMeeting);
@@ -95,11 +94,15 @@ public class CreateNewMeetingActivity
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 sportSearchTriggered(charSequence.toString());
-                     }
+                presenter.meeting.meetingActivity = charSequence.toString();
+            }
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
-            public void afterTextChanged(Editable editable) {}
+            public void afterTextChanged(Editable editable) {
+
+
+            }
         });
 
         updateDateTimeTextviews(presenter.meeting);

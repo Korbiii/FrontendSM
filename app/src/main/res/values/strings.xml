@@ -131,4 +131,5 @@
     <string name="not_enough_participants">Das Meeting hat nicht genug Teilnehmer ausgewählt</string>
     <string name="meeting_ends_before_start">Das Meeting endet bevor es startet.</string>
     <string name="error_msg_create_meeting">Etwas ist schiefgelaufen bei dem Erstellen des Meetings</string>
+    <string name="meetings_location_display">Meetings in:  %1$s</string>
 </resources>
