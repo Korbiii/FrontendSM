@@ -42,14 +42,14 @@ public class DayFragment extends Fragment {
     private List<Meeting> meetingsOnDay;
     private MeetingCardAdapter rvAdapter;
     private FloatingActionButton floatingActionButton;
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final DatabaseMeetingsRepository meetingsRepository = new DatabaseMeetingsRepository();
     private int position;
 
     public static DayFragment newInstance(List<Meeting> meetingsOnDay) {
         DayFragment dayFragment = new DayFragment();
         Bundle args = new Bundle();
-        Collections.sort(meetingsOnDay, new CustomComperator());
+        meetingsOnDay.sort(new CustomComperator());
         args.putSerializable("meetingsOnDay", new ArrayList<>(meetingsOnDay));
         dayFragment.setArguments(args);
         return dayFragment;

@@ -114,12 +114,7 @@ public class MeetingCardAdapter extends RecyclerView.Adapter<MeetingCardAdapter.
             timeCalcList.add(new TimeCalcObject(timeList.get(i).mystartTime, 1));
             timeCalcList.add(new TimeCalcObject(timeList.get(i).myendTime, -1));
         }
-        Collections.sort(timeCalcList, new Comparator<TimeCalcObject>() {
-            @Override
-            public int compare(TimeCalcObject o1, TimeCalcObject o2) {
-                return o1.time.compareTo(o2.time);
-            }
-        });
+        timeCalcList.sort(Comparator.comparing(o -> o.time));
         boolean startSet = false;
         boolean timeFound = false;
         for (int i = 1; i < timeCalcList.size() && !timeFound; i++) {
@@ -162,13 +157,12 @@ public class MeetingCardAdapter extends RecyclerView.Adapter<MeetingCardAdapter.
         }
     }
 
-    class MeetingsViewHolder extends RecyclerView.ViewHolder {
-        private ViewDataBinding mViewDataBinding;
+    static class MeetingsViewHolder extends RecyclerView.ViewHolder {
+        private final ViewDataBinding mViewDataBinding;
 
         public MeetingsViewHolder(ViewDataBinding viewDataBinding) {
             super(viewDataBinding.getRoot());
             mViewDataBinding = viewDataBinding;
-//            ButterKnife.bind(this, itemView);
         }
 
         public ViewDataBinding getViewDataBinding() {
