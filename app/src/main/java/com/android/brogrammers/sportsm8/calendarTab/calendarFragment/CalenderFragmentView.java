@@ -1,4 +1,4 @@
-package com.android.brogrammers.sportsm8.calendarTab.calendarFragmentMVP;
+package com.android.brogrammers.sportsm8.calendarTab.calendarFragment;
 
 import android.app.Activity;
 import android.net.Uri;
@@ -16,7 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.android.brogrammers.sportsm8.calendarTab.adapter.CalendarViewPagerAdapter;
+import com.android.brogrammers.sportsm8.calendarTab.calendarFragment.viewPagerAdapter.CalendarViewPagerAdapter;
+import com.android.brogrammers.sportsm8.calendarTab.calendarFragment.dayFragment.DayFragmentView;
 import com.android.brogrammers.sportsm8.dataBaseConnection.repositories.impl.DatabaseMeetingsRepository;
 import com.android.brogrammers.sportsm8.R;
 import com.android.brogrammers.sportsm8.ViewHelperClass;
@@ -43,12 +44,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CalenderFragment.OnFragmentInteractionListener} interface
+ * {@link CalenderFragmentView.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CalenderFragment#newInstance} factory method to
+ * Use the {@link CalenderFragmentView#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CalenderFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,CalendarFragmentView {
+public class CalenderFragmentView extends Fragment implements SwipeRefreshLayout.OnRefreshListener, CalendarFragmentViewInterface {
     CalendarViewPagerAdapter viewPagerAdapter;
     List<Meeting> meetings;
     Activity parentActivity;
@@ -57,12 +58,12 @@ public class CalenderFragment extends Fragment implements SwipeRefreshLayout.OnR
     CalenderFragmentPresenter presenter;
     private FragmentCalendarBinding binding;
 
-    public CalenderFragment() {
+    public CalenderFragmentView() {
         // Required empty public constructor
     }
 
-    public static CalenderFragment newInstance(String param1, String param2) {
-        return new CalenderFragment();
+    public static CalenderFragmentView newInstance(String param1, String param2) {
+        return new CalenderFragmentView();
     }
 
     @Override
@@ -96,7 +97,7 @@ public class CalenderFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     @Override
-    public void displayMeetings(List<DayFragment> meetings, List<CalendarDay> highlights,DateTime startDate) {
+    public void displayMeetings(List<DayFragmentView> meetings, List<CalendarDay> highlights, DateTime startDate) {
         if(viewPagerAdapter!=null) {
             viewPagerAdapter.updateFragmentList(meetings);
             viewPagerAdapter.setStartDate(startDate);

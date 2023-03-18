@@ -21,16 +21,13 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.android.brogrammers.sportsm8.calendarTab.calendarFragmentMVP.CalenderFragment;
+import com.android.brogrammers.sportsm8.calendarTab.calendarFragment.CalenderFragmentView;
 import com.android.brogrammers.sportsm8.calendarTab.createNewMeetingMVP.CreateNewMeetingActivity;
 import com.android.brogrammers.sportsm8.matchFeedTab.socialFeedFragment.SocialFeedActivity;
 import com.android.brogrammers.sportsm8.socialTab.FragmentSocial;
 import com.android.brogrammers.sportsm8.socialTab.friends.OnlyFriendsView;
 import com.android.brogrammers.sportsm8.userClasses.accountPage.AccountPage;
 import com.android.brogrammers.sportsm8.userClasses.LoginScreen;
-import com.github.javiersantos.appupdater.AppUpdater;
-import com.github.javiersantos.appupdater.enums.Display;
-import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -55,7 +52,7 @@ import butterknife.OnClick;
  * Created by alex on 10/30/2016.
  */
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, CalenderFragment.OnFragmentInteractionListener, FragmentSocial.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, CalenderFragmentView.OnFragmentInteractionListener, FragmentSocial.OnFragmentInteractionListener {
 
     private FragmentManager fragmentManager;
     private DrawerLayout mDrawerLayout;
@@ -122,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if (fragmentManager.findFragmentByTag("calendar") != null) {
                             fragmentManager.beginTransaction().show(fragmentManager.findFragmentByTag("calendar")).commit();
                         } else {
-                            fragmentManager.beginTransaction().add(R.id.fragment_container, new CalenderFragment(), "calendar").commit();
+                            fragmentManager.beginTransaction().add(R.id.fragment_container, new CalenderFragmentView(), "calendar").commit();
                         }
                         if (fragmentManager.findFragmentByTag("feed") != null) {
                             fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("feed")).commit();
@@ -131,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             fragmentManager.beginTransaction().hide(fragmentManager.findFragmentByTag("social")).commit();
                         }
                         floatingActionButton.setVisibility(View.VISIBLE);
-                        //fragment = new CalenderFragment();
+                        //fragment = new CalenderFragmentView();
                         imageButtonToolbar.animate()
                                 .scaleX(0)
                                 .scaleY(0)
@@ -176,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (tabId) {
                     case R.id.tab_calendar:
                         FragmentManager fragmentManager = getSupportFragmentManager();
-                        ((CalenderFragment) fragmentManager.findFragmentByTag("calendar")).scrollTo(0);
+                        ((CalenderFragmentView) fragmentManager.findFragmentByTag("calendar")).scrollTo(0);
                         break;
                     default:
                         break;
@@ -201,13 +198,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @OnClick(R.id.change_start_date)
     public void changeStartDate() {
-        CalenderFragment calenderFragment = (CalenderFragment) fragmentManager.findFragmentByTag("calendar");
+        CalenderFragmentView calenderFragment = (CalenderFragmentView) fragmentManager.findFragmentByTag("calendar");
         calenderFragment.toggleView(startDate);
     }
 
     @OnClick(R.id.fab_calendar)
     public void createNewMeeting() {
-        CalenderFragment calenderFragment = (CalenderFragment) fragmentManager.findFragmentByTag("calendar");
+        CalenderFragmentView calenderFragment = (CalenderFragmentView) fragmentManager.findFragmentByTag("calendar");
         DateTime dateTime = calenderFragment.getSelectedDate().toDateTime();
 //        Intent intent = new Intent(this, CreateNewMeeting.class);
         Intent intent = new Intent(this, CreateNewMeetingActivity.class);
@@ -332,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             locationON = false;
             setLocation.setImageResource(R.drawable.ic_location_off_white_24dp);
-            CalenderFragment c1 = (CalenderFragment) fragmentManager.findFragmentByTag("calendar");
+            CalenderFragmentView c1 = (CalenderFragmentView) fragmentManager.findFragmentByTag("calendar");
             c1.setLocation(0, 0, false);
             c1.toggleView(setLocation);
         }
@@ -342,7 +339,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode < 5) {
-            CalenderFragment calenderFragment = (CalenderFragment) fragmentManager.findFragmentByTag("calendar");
+            CalenderFragmentView calenderFragment = (CalenderFragmentView) fragmentManager.findFragmentByTag("calendar");
             if (requestCode == 1) {
                 if (resultCode == RESULT_OK) {
                     Place place = PlacePicker.getPlace(this, data);

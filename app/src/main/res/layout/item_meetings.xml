@@ -11,7 +11,7 @@
 
         <variable
             name="presenter"
-            type="com.android.brogrammers.sportsm8.calendarTab.calendarFragmentMVP.DayFragment" />
+            type="com.android.brogrammers.sportsm8.calendarTab.calendarFragment.dayFragment.DayFragmentView" />
 
         <variable
             name="meeting"

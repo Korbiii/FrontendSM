@@ -1,4 +1,4 @@
-package com.android.brogrammers.sportsm8.calendarTab.calendarFragmentMVP;
+package com.android.brogrammers.sportsm8.calendarTab.calendarFragment.dayFragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,7 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.brogrammers.sportsm8.calendarTab.adapter.MeetingCardAdapter;
+import com.android.brogrammers.sportsm8.calendarTab.calendarFragment.CalenderFragmentView;
+import com.android.brogrammers.sportsm8.calendarTab.calendarFragment.dayFragment.cardAdapter.MeetingCardAdapter;
 import com.android.brogrammers.sportsm8.calendarTab.meetingDetailMVP.MeetingDetailActivity;
 import com.android.brogrammers.sportsm8.R;
 import com.android.brogrammers.sportsm8.dataBaseConnection.databaseClasses.Meeting;
@@ -27,17 +28,15 @@ import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Action;
 import io.reactivex.observers.DisposableSingleObserver;
 
-public class DayFragment extends Fragment {
+public class DayFragmentView extends Fragment {
     private RecyclerView recyclerView;
     private List<Meeting> meetingsOnDay;
     private MeetingCardAdapter rvAdapter;
@@ -46,13 +45,14 @@ public class DayFragment extends Fragment {
     private final DatabaseMeetingsRepository meetingsRepository = new DatabaseMeetingsRepository();
     private int position;
 
-    public static DayFragment newInstance(List<Meeting> meetingsOnDay) {
-        DayFragment dayFragment = new DayFragment();
+
+    public static DayFragmentView newInstance(List<Meeting> meetingsOnDay) {
+        DayFragmentView dayFragmentView = new DayFragmentView();
         Bundle args = new Bundle();
         meetingsOnDay.sort(new CustomComperator());
         args.putSerializable("meetingsOnDay", new ArrayList<>(meetingsOnDay));
-        dayFragment.setArguments(args);
-        return dayFragment;
+        dayFragmentView.setArguments(args);
+        return dayFragmentView;
     }
 
     public void updateInstance(List<Meeting> meetings, DateTime today, double latitude, double longitude, boolean locationMode) {
@@ -84,6 +84,7 @@ public class DayFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -125,7 +126,7 @@ public class DayFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2 && resultCode == Activity.RESULT_OK) {
-            ((CalenderFragment) getParentFragment()).onRefresh();
+            ((CalenderFragmentView) getParentFragment()).onRefresh();
             System.out.println("hallo");
             //TODO: Refresh better
         }

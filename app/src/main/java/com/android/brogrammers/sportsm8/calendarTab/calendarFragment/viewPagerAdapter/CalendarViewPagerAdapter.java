@@ -1,4 +1,4 @@
-package com.android.brogrammers.sportsm8.calendarTab.adapter;
+package com.android.brogrammers.sportsm8.calendarTab.calendarFragment.viewPagerAdapter;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.android.brogrammers.sportsm8.calendarTab.calendarFragmentMVP.DayFragment;
+import com.android.brogrammers.sportsm8.calendarTab.calendarFragment.dayFragment.DayFragmentView;
 import com.android.brogrammers.sportsm8.R;
 import com.android.brogrammers.sportsm8.dataBaseConnection.databaseClasses.Meeting;
 import com.android.brogrammers.sportsm8.databinding.TabItemBinding;
@@ -22,10 +22,10 @@ import java.util.List;
 
 public class CalendarViewPagerAdapter extends FragmentStateAdapter {
 
-    private final List<DayFragment> fragmentList = new ArrayList<>();
+    private final List<DayFragmentView> fragmentList = new ArrayList<>();
     private final Context context;
 
-    public CalendarViewPagerAdapter(Fragment fragment, Context ApplicationContext, List<DayFragment> meetings) {
+    public CalendarViewPagerAdapter(Fragment fragment, Context ApplicationContext, List<DayFragmentView> meetings) {
         super(fragment);
         fragmentList.clear();
         this.context = ApplicationContext;
@@ -39,8 +39,8 @@ public class CalendarViewPagerAdapter extends FragmentStateAdapter {
 
         tabItemBinding.textViewDate.setText(context.getString(R.string.date_calendar_tabs,todayPosition.getDayOfMonth(),todayPosition.getMonthOfYear()));
         tabItemBinding.textViewDay.setText(todayPosition.toString("E"));
-        DayFragment dayFragment = (DayFragment) this.createFragment(position);
-        List<Meeting> onDay = dayFragment.getMeetingsOnDay();
+        DayFragmentView dayFragmentView = (DayFragmentView) this.createFragment(position);
+        List<Meeting> onDay = dayFragmentView.getMeetingsOnDay();
         if (onDay != null) {
             if (onDay.size() > 0) {
                 tabItemBinding.textViewDate.setTypeface(Typeface.DEFAULT_BOLD);
@@ -59,7 +59,7 @@ public class CalendarViewPagerAdapter extends FragmentStateAdapter {
         return rootView;
     }
 
-    public void updateFragmentList(List<DayFragment> updatedList){
+    public void updateFragmentList(List<DayFragmentView> updatedList){
         fragmentList.clear();
         fragmentList.addAll(updatedList);
     }

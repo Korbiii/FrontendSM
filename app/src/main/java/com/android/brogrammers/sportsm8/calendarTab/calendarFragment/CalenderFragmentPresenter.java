@@ -1,9 +1,10 @@
-package com.android.brogrammers.sportsm8.calendarTab.calendarFragmentMVP;
+package com.android.brogrammers.sportsm8.calendarTab.calendarFragment;
 
 
 import android.location.Location;
 import android.util.Log;
 
+import com.android.brogrammers.sportsm8.calendarTab.calendarFragment.dayFragment.DayFragmentView;
 import com.android.brogrammers.sportsm8.calendarTab.meetingDetailMVP.MeetingDetailActivity;
 import com.android.brogrammers.sportsm8.dataBaseConnection.databaseClasses.Meeting;
 import com.android.brogrammers.sportsm8.dataBaseConnection.offlineDatabase.DatabaseHelper;
@@ -30,11 +31,11 @@ import io.reactivex.observers.DisposableSingleObserver;
 
 public class CalenderFragmentPresenter {
 
-    private CalendarFragmentView view;
+    private CalendarFragmentViewInterface view;
     private MeetingsRepository meetingsRepository;
     private Scheduler mainScheduler;
     private List<Meeting> meetings;
-    private List<DayFragment> dayFragments = new ArrayList<>();
+    private List<DayFragmentView> DayFragmentViews = new ArrayList<>();
     private boolean locationMode = false;
     private double longitude;
     private double latitude;
@@ -42,7 +43,7 @@ public class CalenderFragmentPresenter {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final String TAG = MeetingDetailActivity.class.getSimpleName();
 
-    public CalenderFragmentPresenter(CalendarFragmentView view, MeetingsRepository meetingsRepository, Scheduler mainScheduler) {
+    public CalenderFragmentPresenter(CalendarFragmentViewInterface view, MeetingsRepository meetingsRepository, Scheduler mainScheduler) {
         this.view = view;
         this.meetingsRepository = meetingsRepository;
         this.mainScheduler = mainScheduler;
@@ -91,8 +92,8 @@ public class CalenderFragmentPresenter {
         loadMeetings(today);
     }
 
-    private List<DayFragment> getDayFragments(List<Meeting> meetings, int count) {
-        dayFragments.clear();
+    private List<DayFragmentView> getDayFragments(List<Meeting> meetings, int count) {
+        DayFragmentViews.clear();
         for (int j = 0; j < count; j++) {
             List<Meeting> meetingsOnDay = new ArrayList<>();
             Log.i(TAG, "This is today" + today);
@@ -116,14 +117,14 @@ public class CalenderFragmentPresenter {
                     }
                 }
             }
-            DayFragment temp = DayFragment.newInstance(meetingsOnDay);
-            dayFragments.add(temp);
+            DayFragmentView temp = DayFragmentView.newInstance(meetingsOnDay);
+            DayFragmentViews.add(temp);
         }
-        return dayFragments;
+        return DayFragmentViews;
     }
 
-    public List<DayFragment> getNextDays(int numberOfNewDays, int numberOfCurrentDays) {
-        List<DayFragment> newDays = new ArrayList<>();
+    public List<DayFragmentView> getNextDays(int numberOfNewDays, int numberOfCurrentDays) {
+        List<DayFragmentView> newDays = new ArrayList<>();
         for (int i = 0; i < numberOfNewDays; i++) {
             List<Meeting> meetingsOnDay = new ArrayList<>();
             for (int j = 0; j < meetings.size(); j++) {
@@ -133,7 +134,7 @@ public class CalenderFragmentPresenter {
                     meetingsOnDay.add(meetings.get(j));
                 }
             }
-            newDays.add(DayFragment.newInstance(meetingsOnDay));
+            newDays.add(DayFragmentView.newInstance(meetingsOnDay));
         }
         return newDays;
     }

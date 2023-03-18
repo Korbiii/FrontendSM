@@ -1,4 +1,4 @@
-package com.android.brogrammers.sportsm8.calendarTab.adapter;
+package com.android.brogrammers.sportsm8.calendarTab.calendarFragment.dayFragment.cardAdapter;
 
 import android.content.Context;
 import androidx.databinding.DataBindingUtil;
@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.android.brogrammers.sportsm8.BR;
-import com.android.brogrammers.sportsm8.calendarTab.calendarFragmentMVP.DayFragment;
+import com.android.brogrammers.sportsm8.calendarTab.calendarFragment.dayFragment.DayFragmentView;
 import com.android.brogrammers.sportsm8.dataBaseConnection.apiServices.MeetingApiService;
 import com.android.brogrammers.sportsm8.R;
 import com.android.brogrammers.sportsm8.dataBaseConnection.APIUtils;
@@ -21,7 +21,6 @@ import com.android.brogrammers.sportsm8.databinding.ItemMatchBinding;
 import com.android.brogrammers.sportsm8.databinding.ItemMeetingsBinding;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -37,12 +36,12 @@ public class MeetingCardAdapter extends RecyclerView.Adapter<MeetingCardAdapter.
     private List<Meeting> meetingsOnDay;
     private List<Match> matchesOnDay = new ArrayList<>();
     private MeetingsViewHolder meetingsViewHolder;
-    private DayFragment dayFragment;
+    private DayFragmentView dayFragmentView;
 
-    public MeetingCardAdapter(Context context, List<Meeting> meetingsOnDay, DayFragment dayFragment) {
+    public MeetingCardAdapter(Context context, List<Meeting> meetingsOnDay, DayFragmentView dayFragmentView) {
         this.context = context;
         this.meetingsOnDay = meetingsOnDay;
-        this.dayFragment = dayFragment;
+        this.dayFragmentView = dayFragmentView;
     }
 
     //doesnt need an int position because the card looks the same for all; still this is iterated through before and just like onBindViewHolder!
@@ -50,7 +49,7 @@ public class MeetingCardAdapter extends RecyclerView.Adapter<MeetingCardAdapter.
     public MeetingsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == MEETING) {
             ItemMeetingsBinding viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_meetings, parent, false);
-            viewDataBinding.setPresenter(dayFragment);
+            viewDataBinding.setPresenter(dayFragmentView);
             return new MeetingsViewHolder(viewDataBinding);
         } else {
             ItemMatchBinding viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_match, parent, false);

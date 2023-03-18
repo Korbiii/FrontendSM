@@ -65,9 +65,9 @@ public class CreateNewMeetingActivity
                 new DatabaseSportsRepository(),
                 AndroidSchedulers.mainThread());
         binding = ActivityCreateNewMeetingTwoBinding.inflate(getLayoutInflater());
+        include = binding.include;
         View view = binding.getRoot();
         setContentView(view);
-        include = binding.include;
         intent = getIntent();
 
         include.addFriendsRL.setOnClickListener(this::addFriends);
